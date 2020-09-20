@@ -50,25 +50,9 @@
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Vaccination", "Vaccination", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>
-                    @*<li class="drop-down">
-                            <a href="">Drop Down</a>
-                            <ul>
-                                <li><a href="#">Drop Down 1</a></li>
-                                <li class="drop-down">
-                                    <a href="#">Drop Down 2</a>
-                                    <ul>
-                                        <li><a href="#">Deep Drop Down 1</a></li>
-                                        <li><a href="#">Deep Drop Down 2</a></li>
-                                        <li><a href="#">Deep Drop Down 3</a></li>
-                                        <li><a href="#">Deep Drop Down 4</a></li>
-                                        <li><a href="#">Deep Drop Down 5</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Drop Down 3</a></li>
-                                <li><a href="#">Drop Down 4</a></li>
-                                <li><a href="#">Drop Down 5</a></li>
-                            </ul>
-                        </li>*@
+                    <li><a id="login" href="/login">Login</a></li>
+                    <li><a id="loginOrGotoAccount" href="javascript:void(0)" onclick="loginOrGotoAccount()" style="display:none">Account</a></li>
+                    <li><a id="logout" href="javascript:void(0)" onclick="logout()" style="display:none"></a></li>
                 </ul>
             </nav><!-- .main-nav-->
         </div>
@@ -216,5 +200,22 @@
 
     <!-- Template Main JS File -->
     <script src="/assets/js/main.js"></script>
+    <script src="~/assets/js/appLogic.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if (isLoggedIn()) {
+                $('#loginOrGotoAccount').show();
+                $('#logout').show();
+                $('#login').hide();
+            } else {
+                $('#loginOrGotoAccount').hide();
+                $('#logout').hide();
+                $('#login').show();
+            }
+        });
+    </script>
+
+
 </body>
 </html>

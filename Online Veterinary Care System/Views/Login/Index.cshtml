@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="clearfix" style="margin-top:200px;margin-bottom:50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2>Existing User, Login</h2>
+                    </div>
+                    <div class="card-body" id="footer" style="padding:10px">
+                        <form class="php-email-form" onsubmit="doLogin()">
+                            <div class="form-group">
+                                <input id="username" placeholder="Email/Mobile" type="text" class="form-control"
+                                       required />
+                            </div>
+                            <div class="form-group">
+                                <input id="password" placeholder="Password" type="password" class="form-control"
+                                       required />
+                            </div>
+                            <div class="text-center"><button type="submit" title="Login">Login</button></div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2>New User, Register</h2>
+                    </div>
+                    <div class="card-body" id="footer" style="padding:10px">
+                        <form class="php-email-form" onsubmit="doRegister()">
+                            <div class="form-group">
+                                <input id="name" placeholder="Name" type="text"
+                                       class="form-control"
+                                       required/>
+                            </div>
+                            <div class="form-group">
+                                <input id="email" placeholder="Email" type="text"
+                                       class="form-control"
+                                       required />
+                            </div>
+                            <div class="form-group">
+                                <input id="mobile" placeholder="Mobile" type="text"
+                                       class="form-control"
+                                       required />
+                            </div>
+                            <div class="form-group">
+                                <input id="password" placeholder="Password" type="password" class="form-control"
+                                       required />
+                            </div>
+                            <div class="form-group">
+                                <input id="confirmPassword" placeholder="Confirm Password" type="password" class="form-control"
+                                       required />
+                            </div>
+                            <div class="text-center"><button type="submit" title="Register">Register</button></div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function doLogin() {
+        alert('Login called');
+    }
+</script>
+
