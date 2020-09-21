@@ -16,6 +16,11 @@ namespace BAL
             return _dal.GetUserByUsername(username);
         }
 
+        public ApiResponse GenerateAdmin(string password)
+        {
+            return _dal.GenerateAdmin(password);
+        }
+
         public ApiResponse RegisterUser(User user)
         {
             return _dal.RegisterUser(user);

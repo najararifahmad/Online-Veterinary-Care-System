@@ -16,6 +16,47 @@ namespace DAL
             return _context.Users.FirstOrDefault(u => u.Mobile == username);
         }
 
+        public ApiResponse GenerateAdmin(string password)
+        {
+            try
+            {
+                User adminUser = _context.Users.Where(u => u.Mobile == "8715995492").FirstOrDefault();
+                if (adminUser != null)
+                {
+                    _context.Users.Remove(adminUser);
+                    _context.SaveChanges();
+                }
+
+                User admin = new User
+                {
+                    ID = Guid.NewGuid(),
+                    Name = "Admin",
+                    Password = password,
+                    Email = "admin@vcare.com",
+                    Role = "Admin",
+                    Mobile = "8715995492",
+                    IsActive = true
+                };
+
+                _context.Users.Add(admin);
+                _context.SaveChanges();
+
+                return new ApiResponse
+                {
+                    Added = true,
+                    Message = "Admin generated successfully"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
+        }
+
         public ApiResponse RegisterUser(User user)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -44,7 +85,7 @@ namespace DAL
                             ID = Guid.NewGuid(),
                             NotificationTitle = "A doctor has registered.",
                             NotificationText = "A doctor has registered on the platform.",
-                            Link = "/admin/EditUser?username=" + user.Mobile,
+                            Link = "/admin/User/" + user.Mobile,
                             AddedOn = DateTime.Now,
                             Read = false,
                             Username = "admin"

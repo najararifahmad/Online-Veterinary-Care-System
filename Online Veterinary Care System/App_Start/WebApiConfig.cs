@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 namespace Online_Veterinary_Care_System
@@ -19,6 +21,13 @@ namespace Online_Veterinary_Care_System
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var jsonSettings = config.Formatters.JsonFormatter.SerializerSettings;
+
+            // configure json formatter
+            JsonMediaTypeFormatter jsonFormatter = config.Formatters.JsonFormatter;
+
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

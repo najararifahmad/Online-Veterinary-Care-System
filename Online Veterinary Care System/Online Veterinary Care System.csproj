@@ -214,6 +214,7 @@
     <Content Include="assets\img\features-2.svg" />
     <Content Include="assets\img\intro-bg.jpg" />
     <Content Include="assets\img\intro-img.svg" />
+    <Content Include="assets\img\loading.gif" />
     <Content Include="assets\img\portfolio\app1.jpg" />
     <Content Include="assets\img\portfolio\app2.jpg" />
     <Content Include="assets\img\portfolio\app3.jpg" />
@@ -352,6 +353,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\DoctorRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
