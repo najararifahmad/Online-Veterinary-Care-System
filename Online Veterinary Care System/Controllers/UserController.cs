@@ -45,9 +45,17 @@ namespace Online_Veterinary_Care_System.Controllers
         }
 
         [HttpPost]
+        [Route("api/User/ApproveDoctor")]
         public IHttpActionResult ApproveDoctor(string mobile)
         {
             return Ok(_bal.ApproveDoctor(mobile));
+        }
+
+        [HttpPost]
+        [Route("api/User/RejectDoctor")]
+        public IHttpActionResult RejectDoctor(string mobile)
+        {
+            return Ok(_bal.RejectDoctor(mobile));
         }
 
         [HttpPost]

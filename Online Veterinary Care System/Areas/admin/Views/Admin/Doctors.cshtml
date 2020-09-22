@@ -59,12 +59,8 @@
 <script>
     function approveDoctor(mobile) {
 
-        var obj = {};
-        obj.mobile = mobile;
-
         $.ajax({
             url: '/api/User/ApproveDoctor?mobile=' + mobile,
-            data: JSON.stringify(obj),
             method: 'POST',
             beforeSend: function () {
                 $('#loading').show();
@@ -75,6 +71,7 @@
             success: function (res) {
                 if (res.added) {
                     alert(res.message);
+                    location.reload();
                 } else {
                     alert(res.message);
                 }
@@ -87,6 +84,27 @@
     }
 
     function rejectDoctor(mobile) {
-        console.log(mobile);
+        $.ajax({
+            url: '/api/User/RejectDoctor?mobile=' + mobile,
+            method: 'POST',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.added) {
+                    alert(res.message);
+                    location.reload();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function (err) {
+                console.log('Error: ', err);
+                alert(err);
+            }
+        });
     }
 </script>

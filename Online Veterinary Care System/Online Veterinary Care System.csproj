@@ -158,6 +158,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\doctor\Controllers\DoctorController.cs" />
+    <Compile Include="Areas\doctor\doctorAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -841,6 +843,11 @@
     <Content Include="Areas\admin\vendor\jquery.cookie\component.json" />
     <Content Include="Areas\admin\vendor\jquery.cookie\cookie.jquery.json" />
     <Content Include="Areas\admin\Views\Admin\Doctors.cshtml" />
+    <Content Include="Areas\doctor\Views\web.config" />
+    <Content Include="Areas\doctor\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\doctor\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\doctor\Views\Doctor\Index.cshtml" />
+    <Content Include="Areas\doctor\Views\Doctor\Appointments.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -868,6 +875,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\admin\vendor\font-awesome\less\" />
     <Folder Include="Areas\admin\vendor\font-awesome\scss\" />
+    <Folder Include="Areas\doctor\Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
