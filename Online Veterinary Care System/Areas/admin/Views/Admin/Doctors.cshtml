@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DAL.Models.User>
+@{
+    ViewBag.Title = "Doctors";
+}
+
+<style>
+    th{
+        border: 1px solid black;
+    }
+</style>
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Registered Doctors</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Address</th>
+                            <th>Registered Date</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var m in Model)
+                        {
+                        <tr>
+                            <td>@m.Name</td>
+                            <td>@m.Email</td>
+                            <td>@m.Mobile</td>
+                            <td>@m.Address</td>
+                            <td>@m.AddedOn</td>
+                            @if (m.IsActive == false)
+                            {
+                                <td><a href="javascript:void(0)" onclick="approveDoctor('@m.Mobile')">Approve</a></td>
+                            }
+                            else
+                            {
+                                <td><a href="javascript:void(0)" onclick="rejectDoctor('@m.Mobile')">Reject</a></td>
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function approveDoctor(mobile) {
+
+        var obj = {};
+        obj.mobile = mobile;
+
+        $.ajax({
+            url: '/api/User/ApproveDoctor?mobile=' + mobile,
+            data: JSON.stringify(obj),
+            method: 'POST',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.added) {
+                    alert(res.message);
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function (err) {
+                console.log('Error: ', err);
+                alert(err);
+            }
+        });
+    }
+
+    function rejectDoctor(mobile) {
+        console.log(mobile);
+    }
+</script>

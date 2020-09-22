@@ -45,6 +45,12 @@ namespace Online_Veterinary_Care_System.Controllers
         }
 
         [HttpPost]
+        public IHttpActionResult ApproveDoctor(string mobile)
+        {
+            return Ok(_bal.ApproveDoctor(mobile));
+        }
+
+        [HttpPost]
         public IHttpActionResult Post(User user)
         {
             user.ID = Guid.NewGuid();

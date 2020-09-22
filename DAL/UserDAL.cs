@@ -11,6 +11,10 @@ namespace DAL
     {
         VCDbContext _context = new VCDbContext();
 
+        public IEnumerable<User> GetDoctors()
+        {
+            return _context.Users.Where(u => u.Role == "Doctor").OrderByDescending(u => u.AddedOn).ToList();
+        }
         public User GetUserByUsername(string username)
         {
             return _context.Users.FirstOrDefault(u => u.Mobile == username);
@@ -113,6 +117,46 @@ namespace DAL
                 }
             }
 
+        }
+
+        public ApiResponse ApproveDoctor(string mobile)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Mobile == mobile);
+                if(user != null)
+                {
+                    if (user.IsActive)
+                    {
+                        return new ApiResponse
+                        {
+                            Added = false,
+                            Message = "Doctor approved already."
+                        };
+                    }
+
+                    user.IsActive = true;
+                    _context.SaveChanges();
+                    return new ApiResponse
+                    {
+                        Added = true,
+                        Message = "Doctor approved successfully."
+                    };
+                }
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Doctor not found. Please try again..."
+                };
+            }
+            catch (Exception)
+            {
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
         }
     }
 }

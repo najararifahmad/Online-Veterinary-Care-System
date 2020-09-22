@@ -11,6 +11,11 @@ namespace BAL
     public class UserBAL
     {
         UserDAL _dal = new UserDAL();
+
+        public IEnumerable<User> GetDoctors()
+        {
+            return _dal.GetDoctors();
+        }
         public User GetUserByUsername(string username)
         {
             return _dal.GetUserByUsername(username);
@@ -21,7 +26,12 @@ namespace BAL
             return _dal.GenerateAdmin(password);
         }
 
-        public ApiResponse RegisterUser(User user)
+        public ApiResponse ApproveDoctor(string mobile)
+        {
+            return _dal.ApproveDoctor(mobile);
+        }
+
+            public ApiResponse RegisterUser(User user)
         {
             return _dal.RegisterUser(user);
         }
