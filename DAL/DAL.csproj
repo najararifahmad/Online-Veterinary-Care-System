@@ -68,6 +68,14 @@
     <Compile Include="Migrations\202009230657155_ToTimeDeletedInBookingSlot.designer.cs">
       <DependentUpon>202009230657155_ToTimeDeletedInBookingSlot.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009231256115_ExtraFieldsInAppointmentTable.cs" />
+    <Compile Include="Migrations\202009231256115_ExtraFieldsInAppointmentTable.designer.cs">
+      <DependentUpon>202009231256115_ExtraFieldsInAppointmentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009231407028_NumPatientsAdded.cs" />
+    <Compile Include="Migrations\202009231407028_NumPatientsAdded.designer.cs">
+      <DependentUpon>202009231407028_NumPatientsAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -96,6 +104,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009230657155_ToTimeDeletedInBookingSlot.resx">
       <DependentUpon>202009230657155_ToTimeDeletedInBookingSlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009231256115_ExtraFieldsInAppointmentTable.resx">
+      <DependentUpon>202009231256115_ExtraFieldsInAppointmentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009231407028_NumPatientsAdded.resx">
+      <DependentUpon>202009231407028_NumPatientsAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

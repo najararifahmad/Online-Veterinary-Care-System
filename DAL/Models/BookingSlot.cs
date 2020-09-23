@@ -17,5 +17,6 @@ namespace DAL.Models
         public User User { get; set; }
         public string Day { get; set; }
         public string FromTo { get; set; }
+        public int NumPatients { get; set; }
     }
 }

@@ -22,6 +22,10 @@ namespace DAL.Models
         public long BookingSlotID { get; set; }
         [ForeignKey("BookingSlotID")]
         public BookingSlot BookingSlot { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string ContactNo { get; set; }
+        public string PetName { get; set; }
         public long TokenNo { get; set; }
     }
 }

@@ -48,6 +48,7 @@ namespace DAL
             return _context.BookingSlots.Where(b => b.Mobile == mobile).OrderBy(b => b.Day).ToList();
         }
 
+
         public ApiResponse DeleteBookingSlot(long id)
         {
             try

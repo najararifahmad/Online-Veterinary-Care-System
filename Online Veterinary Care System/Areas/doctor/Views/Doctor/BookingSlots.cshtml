@@ -23,6 +23,7 @@
                         <tr>
                             <th>Day</th>
                             <th>Time Frame</th>
+                            <th>Number of Patients Allowed</th>
                             <th>#</th>
                         </tr>
                     </thead>
@@ -58,6 +59,7 @@
                 for (var i = 0; i < res.length; i++) {
                     html += '<tr><td>' + res[i].day +
                         '</td><td>' + res[i].fromTo + '</td>' +
+                        '<td>' + res[i].numPatients + '</td>' +
                         '<td><a href="javascript:void(0)" onclick="deleteBookingSlot(' + res[i].id +
                         ')">Delete</a></td>' +
                         '</tr>';
