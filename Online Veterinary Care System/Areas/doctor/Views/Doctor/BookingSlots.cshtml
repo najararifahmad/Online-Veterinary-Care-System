@@ -3,5 +3,98 @@
     ViewBag.Title = "BookingSlots";
 }
 
-<h2>BookingSlots</h2>
+<!-- Counts Section -->
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Booking Slots</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/doctor/addbookingslot">Add New Booking Slot</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="bookingSlotTable" class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Time Frame</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 
+<script>
+    $(document).ready(function () {
+        loadBookingSlots();
+    });
+
+    function loadBookingSlots() {
+        $.ajax({
+            url: '/api/BookingSlot/GetBookingSlotsForDoctor?mobile=9596173109',
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.length <= 0) {
+                    $('#bookingSlotTable').hide();
+                } else {
+                    $('#bookingSlotTable').show();
+                }
+                var html = '<tbody>';
+                for (var i = 0; i < res.length; i++) {
+                    html += '<tr><td>' + res[i].day +
+                        '</td><td>' + res[i].fromTo + '</td>' +
+                        '<td><a href="javascript:void(0)" onclick="deleteBookingSlot(' + res[i].id +
+                        ')">Delete</a></td>' +
+                        '</tr>';
+                    html += '</tbody>';
+                }
+                $('#bookingSlotTable').append(html);
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err);
+            }
+        });
+    }
+
+    function deleteBookingSlot(id) {
+        $.ajax({
+            url: '/api/BookingSlot/Delete/' + id,
+            dataType: 'json',
+            method: 'DELETE',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.added) {
+                    alert(res.message);
+                    loadBookingSlots();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err);
+            }
+        });
+    }
+</script>

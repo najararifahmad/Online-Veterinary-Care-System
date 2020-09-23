@@ -15,6 +15,16 @@ namespace DAL
         {
             try
             {
+                var _bookingSlot = _context.BookingSlots.FirstOrDefault(b => b.Day == bookingSlot.Day &&
+                                                                        b.FromTo == bookingSlot.FromTo);
+                if(_bookingSlot != null)
+                {
+                    return new ApiResponse
+                    {
+                        Added = false,
+                        Message = "Booking Slot already added for " + bookingSlot.Day
+                    };
+                }
                 _context.BookingSlots.Add(bookingSlot);
                 _context.SaveChanges();
                 return new ApiResponse
@@ -49,7 +59,7 @@ namespace DAL
                     _context.SaveChanges();
                     return new ApiResponse
                     {
-                        Added = false,
+                        Added = true,
                         Message = "Booking Slot deleted successfully."
                     };
                 }

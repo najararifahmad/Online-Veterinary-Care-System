@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,16 @@ namespace Online_Veterinary_Care_System.Areas.doctor.Controllers
         }
 
         public ActionResult Appointments()
+        {
+            return View();
+        }
+
+        public ActionResult BookingSlots()
+        {
+            return View();
+        }
+
+        public ActionResult AddBookingSlot()
         {
             return View();
         }
