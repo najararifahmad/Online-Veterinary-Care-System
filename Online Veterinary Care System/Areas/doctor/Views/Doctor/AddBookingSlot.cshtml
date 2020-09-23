@@ -66,6 +66,12 @@
 
 <script>
     function addBookingSlot() {
+        if ($('#numPatients').val() === '') {
+            alert('Please enter Number of Patients Allowed.');
+            $('#numPatients').focus();
+            return;
+        }
+
         var obj = {};
         obj.day = $('#day').val();
         obj.fromTo = $('#fromTo').val();

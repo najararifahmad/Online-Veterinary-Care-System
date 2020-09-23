@@ -55,6 +55,8 @@
                 } else {
                     $('#bookingSlotTable').show();
                 }
+
+                $('#bookingSlotTable > tbody').remove();
                 var html = '<tbody>';
                 for (var i = 0; i < res.length; i++) {
                     html += '<tr><td>' + res[i].day +
