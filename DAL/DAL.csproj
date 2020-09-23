@@ -76,10 +76,13 @@
     <Compile Include="Migrations\202009231407028_NumPatientsAdded.designer.cs">
       <DependentUpon>202009231407028_NumPatientsAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009231705002_AppointmentSettingRemoved.cs" />
+    <Compile Include="Migrations\202009231705002_AppointmentSettingRemoved.designer.cs">
+      <DependentUpon>202009231705002_AppointmentSettingRemoved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\AppointmentSetting.cs" />
     <Compile Include="Models\BookingSlot.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\User.cs" />
@@ -110,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009231407028_NumPatientsAdded.resx">
       <DependentUpon>202009231407028_NumPatientsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009231705002_AppointmentSettingRemoved.resx">
+      <DependentUpon>202009231705002_AppointmentSettingRemoved.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

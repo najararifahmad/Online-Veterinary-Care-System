@@ -48,6 +48,15 @@ namespace DAL
             return _context.BookingSlots.Where(b => b.Mobile == mobile).OrderBy(b => b.Day).ToList();
         }
 
+        public IEnumerable<BookingSlot> GetBookingSlotsForDoctorAndDate(string mobile, DateTime bookingDate)
+        {
+            var day = bookingDate.DayOfWeek.ToString();
+            var bookingSlots = _context.BookingSlots.Where(b => b.Mobile == mobile
+                                                            && b.Day == day).ToList();
+
+            return bookingSlots;
+        }
+
 
         public ApiResponse DeleteBookingSlot(long id)
         {

@@ -21,6 +21,11 @@ namespace BAL
             return _dal.GetBookingSlotsForDoctor(mobile);
         }
 
+        public IEnumerable<BookingSlot> GetBookingSlotsForDoctorAndDate(string mobile, DateTime bookingDate)
+        {
+            return _dal.GetBookingSlotsForDoctorAndDate(mobile, bookingDate);
+        }
+
         public ApiResponse DeleteBookingSlot(long id)
         {
             return _dal.DeleteBookingSlot(id);

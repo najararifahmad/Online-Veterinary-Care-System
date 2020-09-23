@@ -20,7 +20,14 @@ namespace Online_Veterinary_Care_System.Controllers
             return Ok(_bal.GetBookingSlotsForDoctor(mobile));
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Route("api/BookingSlot/GetBookingSlotsForDoctorAndDate")]
+        public IHttpActionResult GetBookingSlotsForDoctorAndDate(string mobile, string bookingDate)
+        {
+            return Ok(_bal.GetBookingSlotsForDoctorAndDate(mobile, DateTime.ParseExact(bookingDate, "MM/dd/yyyy", null)));
+        }
+
+            [HttpPost]
         [Route("api/BookingSlot/Post")]
         public IHttpActionResult Post([FromBody] BookingSlot bookingSlot)
         {
