@@ -188,6 +188,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\BookingSlotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -848,6 +849,8 @@
     <Content Include="Areas\doctor\Views\_ViewStart.cshtml" />
     <Content Include="Areas\doctor\Views\Doctor\Index.cshtml" />
     <Content Include="Areas\doctor\Views\Doctor\Appointments.cshtml" />
+    <Content Include="Areas\doctor\Views\Doctor\BookingSlots.cshtml" />
+    <Content Include="Areas\doctor\Views\Doctor\AddBookingSlot.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

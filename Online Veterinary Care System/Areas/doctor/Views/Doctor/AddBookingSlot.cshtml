@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Add Booking Slot";
+}
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2>Add New Booking Slot</h2>
+                    </div>
+                    <div class="card-body" style="padding:10px">
+                        <form onsubmit="addBookingSlot()">
+                            <label><strong>Select Day:</strong></label>
+                            <div class="form-group">
+                                <select id="day" class="form-control">
+                                    <option>Monday</option>
+                                    <option>Tuesday</option>
+                                    <option>Wednesday</option>
+                                    <option>Thursday</option>
+                                    <option>Friday</option>
+                                    <option>Saturday</option>
+                                    <option>Sunday</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Select Booking Slot:</strong></label>
+                                <select id="fromTo" class="form-control">
+                                    <option>7:00 AM - 8:00 AM</option>
+                                    <option>8:00 AM - 9:00 AM</option>
+                                    <option>9:00 AM - 10:00 AM</option>
+                                    <option>10:00 AM - 11:00 AM</option>
+                                    <option>11:00 AM - 12:00 PM</option>
+                                    <option>12:00 PM - 1:00 PM</option>
+                                    <option>1:00 PM - 2:00 PM</option>
+                                    <option>2:00 PM - 3:00 PM</option>
+                                    <option>3:00 PM - 4:00 PM</option>
+                                    <option>4:00 PM - 5:00 PM</option>
+                                    <option>5:00 PM - 6:00 PM</option>
+                                    <option>6:00 PM - 7:00 PM</option>
+                                    <option>7:00 PM - 8:00 PM</option>
+                                    <option>8:00 PM - 9:00 PM</option>
+                                    <option>9:00 PM - 10:00 PM</option>
+                                    <option>10:00 PM - 11:00 PM</option>
+                                </select>
+                            </div>
+                            <div class="text-center"><button type="submit" title="Add Booking Slot">Add Booking Slot</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function addBookingSlot() {
+        var obj = {};
+        obj.day = $('#day').val();
+        obj.fromTo = $('#fromTo').val();
+        obj.mobile = "9596173109";
+
+        $.ajax({
+            url: '/api/BookingSlot/Post',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(obj),
+            contentType: 'application/json',
+            beforeSend: function () {
+
+            },
+            complete: function () {
+
+            },
+            success: function (res) {
+
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    }
+</script>
+

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookingSlotDAL.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.designer.cs">
       <DependentUpon>202009181339402_FirstMigration.cs</DependentUpon>
@@ -59,8 +60,19 @@
     <Compile Include="Migrations\202009191716404_NotificationTableAdded.designer.cs">
       <DependentUpon>202009191716404_NotificationTableAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009230540277_AppointmentTablesCreated.cs" />
+    <Compile Include="Migrations\202009230540277_AppointmentTablesCreated.designer.cs">
+      <DependentUpon>202009230540277_AppointmentTablesCreated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009230657155_ToTimeDeletedInBookingSlot.cs" />
+    <Compile Include="Migrations\202009230657155_ToTimeDeletedInBookingSlot.designer.cs">
+      <DependentUpon>202009230657155_ToTimeDeletedInBookingSlot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\AppointmentSetting.cs" />
+    <Compile Include="Models\BookingSlot.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +90,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009191716404_NotificationTableAdded.resx">
       <DependentUpon>202009191716404_NotificationTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009230540277_AppointmentTablesCreated.resx">
+      <DependentUpon>202009230540277_AppointmentTablesCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009230657155_ToTimeDeletedInBookingSlot.resx">
+      <DependentUpon>202009230657155_ToTimeDeletedInBookingSlot.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

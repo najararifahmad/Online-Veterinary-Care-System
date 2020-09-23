@@ -10,7 +10,6 @@ namespace DAL.Models
     public class User
     {
         [Required]
-        [Key]
         public Guid ID { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
@@ -18,6 +17,7 @@ namespace DAL.Models
         [StringLength(255)]
         public string Email { get; set; }
         [StringLength(20)]
+        [Key]
         public string Mobile { get; set; }
         public string Address { get; set; }
         public bool IsActive { get; set; }
