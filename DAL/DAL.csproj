@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentDAL.cs" />
     <Compile Include="BookingSlotDAL.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.designer.cs">
@@ -79,6 +80,10 @@
     <Compile Include="Migrations\202009231705002_AppointmentSettingRemoved.cs" />
     <Compile Include="Migrations\202009231705002_AppointmentSettingRemoved.designer.cs">
       <DependentUpon>202009231705002_AppointmentSettingRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009250608249_MobileRemovedFromAppointment.cs" />
+    <Compile Include="Migrations\202009250608249_MobileRemovedFromAppointment.designer.cs">
+      <DependentUpon>202009250608249_MobileRemovedFromAppointment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
@@ -116,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009231705002_AppointmentSettingRemoved.resx">
       <DependentUpon>202009231705002_AppointmentSettingRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009250608249_MobileRemovedFromAppointment.resx">
+      <DependentUpon>202009250608249_MobileRemovedFromAppointment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
