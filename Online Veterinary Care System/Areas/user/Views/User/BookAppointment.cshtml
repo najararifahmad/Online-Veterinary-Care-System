@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "Book Appointment";
+}
+
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+<!-- Counts Section -->
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label><strong>Doctor:</strong></label>
+                    <select id="doctor" class="form-control"
+                            required></select>
+                </div>
+
+                <div class="form-group">
+                    <label><strong>Appointment Date:</strong></label>
+                    <input id="bookingDate" class="form-control"
+                           onchange="getBookingSlots()"
+                           required />
+                </div>
+
+                <div class="form-group">
+                    <label><strong>Booking Slot:</strong></label>
+                    <select id="bookingSlot" class="form-control" required></select>
+                </div>
+                <div class="form-group">
+                    <label><strong>Name:</strong></label>
+                    <input id="name" placeholder="Name" type="text"
+                           class="form-control"
+                           required />
+                </div>
+                <div class="form-group">
+                    <label><strong>Address:</strong></label>
+                    <textarea id="address" placeholder="Address" type="text"
+                              class="form-control"
+                              required></textarea>
+                </div>
+                <div class="form-group">
+                    <label><strong>Contact No:</strong></label>
+                    <input id="contactNo" placeholder="Contact No" type="text"
+                           class="form-control"
+                           required />
+                </div>
+                <div class="form-group">
+                    <label><strong>Pet Name:</strong></label>
+                    <input id="petName" placeholder="Pet Name" type="text"
+                           class="form-control" />
+                </div>
+                <div class="text-center">
+                    <button type="button"
+                            class="btn btn-primary" title="Book Now"
+                            onclick="bookAppointment()">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#bookingDate').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+
+    function bookAppointment() {
+        if ($('#doctor').val() == 'Select Doctor') {
+            alert('Please select Doctor.');
+            return;
+        }
+        if ($('#bookingDate').val() == '') {
+            alert('Please select Appointment Date.');
+            return;
+        }
+        if ($('#bookingSlot').val() == 'Select Booking Slot') {
+            alert('Please select Booking Slot.');
+            return;
+        }
+        if ($('#name').val() == '') {
+            alert('Please enter Name.');
+            return;
+        }
+        if ($('#address').val() == '') {
+            alert('Please enter Address.');
+            return;
+        }
+        if ($('#contactNo').val() == '') {
+            alert('Please enter Contact No.');
+            return;
+        }
+
+
+        $.ajax({
+            url: '/api/Appointment/BookAppointment?bookingSlotId=' + $('#bookingSlot').val() +
+                '&bookingDate=' + $('#bookingDate').val() + '&mobile=919596173109&name=' +
+                $('#name').val() + '&address=' + $('#address').val() +
+                '&contactNo=' + $('#contactNo').val() +
+                '&petName=' + $('#petName').val(),
+            dataType: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.added) {
+                    alert(res.message);
+                    window.location = '/user/appointments';
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err);
+            }
+        });
+    }
+
+    function getBookingSlots() {
+        if ($('#doctor').val() == 'Select Doctor') {
+            alert('Please select Doctor.');
+            return;
+        }
+
+        $.ajax({
+            url: '/api/BookingSlot/GetBookingSlotsForDoctorAndDate?mobile=9596173109&bookingDate=' + $('#bookingDate').val(),
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+
+                $('#bookingSlot').empty();
+
+                $('#bookingSlot').append('<option>Select Booking Slot</option>');
+
+                for (var i = 0; i < res.length; i++) {
+                    $('#bookingSlot').append('<option value="' + res[i].id + '">' + res[i].fromTo + '</option>');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/api/User/GetDoctors',
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+
+                $('#doctor').append('<option>Select Doctor</option>');
+
+                for (var i = 0; i < res.length; i++) {
+                    $('#doctor').append('<option value="' + res[i].mobile + '">' + res[i].name + '</option>');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err);
+            }
+        });
+    });
+</script>
+

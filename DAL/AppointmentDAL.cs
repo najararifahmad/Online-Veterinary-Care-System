@@ -74,6 +74,19 @@ namespace DAL
                     };
                 }
 
+                var appointmentInDb = _context.Appointments.FirstOrDefault(a => a.Mobile == mobile &&
+                                                                           a.AppointmentDate == bookingDate &&
+                                                                           a.BookingSlotID == bookingSlotId);
+
+                if(appointmentInDb != null)
+                {
+                    return new ApiResponse
+                    {
+                        Added = false,
+                        Message = "Appointment for the selected Date and Booking Slot already booked. Please select another Appointment Date/Booking Slot/Doctor"
+                    };
+                }
+
                 var appointment = new Appointment
                 {
                     Mobile = mobile,

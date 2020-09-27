@@ -32,12 +32,23 @@ namespace Online_Veterinary_Care_System.Controllers
                 return sb.ToString();
             }
         }
+
+        [HttpGet]
+        [Route("api/User/GetUserByUsername")]
         public IHttpActionResult GetUserByUsername(string username)
         {
             return Ok(_bal.GetUserByUsername(username));
         }
 
+        [HttpGet]
+        [Route("api/User/GetDoctors")]
+        public IHttpActionResult GetDoctors()
+        {
+            return Ok(_bal.GetDoctors());
+        }
+
         [HttpPost]
+        [Route("api/User/GenerateAdmin")]
         public IHttpActionResult GenerateAdmin(string password)
         {
             password = HashPassword(password);
