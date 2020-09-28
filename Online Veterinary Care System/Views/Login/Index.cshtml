@@ -73,7 +73,31 @@
 
 <script>
     function doLogin() {
-        
+        $.ajax({
+            url: "/api/token",
+            type: "POST",
+            data: $.param({ grant_type: 'password', username: $("#username").val(), password: $("#password").val() }),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                localStorage.setItem('token', JSON.stringify(res));
+                if (res.role == 'Admin') {
+                    window.location = '/admin';
+                } else if (res.role == 'Doctor') {
+                    window.location = '/doctor';
+                } else {
+                    window.location = '/user';
+                }
+            },
+            error: function () {
+                alert('Invalid Username/ Password');
+            }
+        });
     }
 
     function doRegister() {

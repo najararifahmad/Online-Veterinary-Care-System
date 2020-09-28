@@ -198,5 +198,14 @@
     <script src="/areas/admin/js/charts-home.js"></script>
     <!-- Main File-->
     <script src="/areas/admin/js/front.js"></script>
+    <script src="~/assets/js/appLogic.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if (!isAdminLoggedIn()) {
+                window.location = '/login';
+            }
+        });
+    </script>
 </body>
 </html>

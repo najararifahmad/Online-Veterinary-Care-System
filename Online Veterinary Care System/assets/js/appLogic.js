@@ -11,6 +11,24 @@
     return true;
 }
 
+function isUserLoggedIn() {
+    const token = localStorage.getItem('token');
+    if (token === null || token === '' || token === undefined) {
+        return false;
+    }
+    const currentDate = new Date();
+    const tokenExpirationDate = new Date(JSON.parse(localStorage.getItem('token'))['.expires']);
+    if (currentDate > tokenExpirationDate) {
+        return false;
+    }
+
+    if (JSON.parse(localStorage.getItem('token')).role === 'User') {
+        return true;
+    }
+
+    return false;
+}
+
 function isAdminLoggedIn() {
     const token = localStorage.getItem('token');
     if (token === null || token === '' || token === undefined) {

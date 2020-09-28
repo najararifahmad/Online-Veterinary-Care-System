@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+[assembly: OwinStartup(typeof(Online_Veterinary_Care_System.Startup))]
 namespace Online_Veterinary_Care_System
 {
     public partial class Startup
