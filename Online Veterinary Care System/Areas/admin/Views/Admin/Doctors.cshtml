@@ -26,6 +26,8 @@
                             <th>Mobile</th>
                             <th>Address</th>
                             <th>Registered Date</th>
+                            <th>Identity Card</th>
+                            <th>Aadhar Card</th>
                             <th>#</th>
                         </tr>
                     </thead>
@@ -38,6 +40,16 @@
                             <td>@m.Mobile</td>
                             <td>@m.Address</td>
                             <td>@m.AddedOn</td>
+                            <td>
+                                <a href="javascript:void(0)" onclick="showDocument('@m.IdentityCardImagePath', 'Identity Card')">
+                                    <img src="@m.IdentityCardImagePath" height="100" />
+                                </a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" onclick="showDocument('@m.AadharCardImagePath', 'Aadhar Card')">
+                                    <img src="@m.AadharCardImagePath" height="100" />
+                                </a>
+                            </td>
                             @if (m.IsActive == false)
                             {
                                 <td><a href="javascript:void(0)" onclick="approveDoctor('@m.Mobile')">Approve</a></td>
@@ -54,6 +66,25 @@
         </div>
     </div>
 </section>
+
+<div id="documentModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="documentTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-x: scroll; overflow-y: scroll">
+                <img id="documentImage"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
@@ -106,5 +137,11 @@
                 alert(err);
             }
         });
+    }
+
+    function showDocument(imagePath, documentTitle) {
+        $('#documentTitle').text(documentTitle);
+        $('#documentImage').attr('src', imagePath);
+        $('#documentModal').modal('show');
     }
 </script>

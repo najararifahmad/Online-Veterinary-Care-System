@@ -49,6 +49,13 @@ namespace Online_Veterinary_Care_System.Controllers
             return Ok(_bal.GetDoctors());
         }
 
+        [HttpGet]
+        [Route("api/User/GetActiveDoctors")]
+        public IHttpActionResult GetActiveDoctors()
+        {
+            return Ok(_bal.GetActiveDoctors());
+        }
+
         [HttpPost]
         [Route("api/User/GenerateAdmin")]
         public IHttpActionResult GenerateAdmin(string password)

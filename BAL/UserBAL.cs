@@ -16,6 +16,10 @@ namespace BAL
         {
             return _dal.GetDoctors();
         }
+        public IEnumerable<User> GetActiveDoctors()
+        {
+            return _dal.GetActiveDoctors();
+        }
         public User GetUserByUsername(string username)
         {
             return _dal.GetUserByUsername(username);

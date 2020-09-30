@@ -12,7 +12,7 @@
                         <h2>Existing User, Login</h2>
                     </div>
                     <div class="card-body" id="footer" style="padding:10px">
-                        <form class="php-email-form" onsubmit="doLogin()">
+                        <form class="php-email-form" >
                             <div class="form-group">
                                 <input id="username" placeholder="Email/Mobile" type="text" class="form-control"
                                        required />
@@ -21,7 +21,7 @@
                                 <input id="password" placeholder="Password" type="password" class="form-control"
                                        required />
                             </div>
-                            <div class="text-center"><button type="submit" title="Login">Login</button></div>
+                            <div class="text-center"><button type="button" class="btn btn-primary" title="Login" onclick="doLogin()">Login</button></div>
                         </form>
 
                     </div>
@@ -34,7 +34,7 @@
                         <h2>New User, Register</h2>
                     </div>
                     <div class="card-body" id="footer" style="padding:10px">
-                        <form class="php-email-form" onsubmit="doRegister()">
+                        <form class="php-email-form">
                             <div class="form-group">
                                 <input id="name" placeholder="Name" type="text"
                                        class="form-control"
@@ -58,7 +58,9 @@
                                 <input id="confirmPassword" placeholder="Confirm Password" type="password" class="form-control"
                                        required />
                             </div>
-                            <div class="text-center"><button type="submit" title="Register">Register</button></div>
+                            <div class="text-center"><button type="button" class="btn btn-primary"
+                                                             title="Register"
+                                                             onclick="doRegister()">Register</button></div>
                         </form>
                         <div class="text-center">
                             @Html.ActionLink("Register as a Doctor", "DoctorRegister", "Login")
@@ -85,6 +87,7 @@
                 $('#loading').hide();
             },
             success: function (res) {
+                console.log(res);
                 localStorage.setItem('token', JSON.stringify(res));
                 if (res.role == 'Admin') {
                     window.location = '/admin';
@@ -95,6 +98,7 @@
                 }
             },
             error: function () {
+                console.log('Error occured.');
                 alert('Invalid Username/ Password');
             }
         });

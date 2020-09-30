@@ -15,6 +15,10 @@ namespace DAL
         {
             return _context.Users.Where(u => u.Role == "Doctor").OrderByDescending(u => u.AddedOn).ToList();
         }
+        public IEnumerable<User> GetActiveDoctors()
+        {
+            return _context.Users.Where(u => u.Role == "Doctor" && u.IsActive == true).OrderBy(u => u.Name).ToList();
+        }
         public User GetUserByUsername(string username)
         {
             return _context.Users.FirstOrDefault(u => u.Mobile == username);
