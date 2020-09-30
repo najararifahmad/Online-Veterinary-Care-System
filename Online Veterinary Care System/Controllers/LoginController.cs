@@ -18,5 +18,9 @@ namespace Online_Veterinary_Care_System.Controllers
         {
             return View();
         }
+        public ActionResult DoctorVerification()
+        {
+            return View();
+        }
     }
 }

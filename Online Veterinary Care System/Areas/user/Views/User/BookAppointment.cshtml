@@ -94,10 +94,12 @@
             return;
         }
 
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
+
 
         $.ajax({
             url: '/api/Appointment/BookAppointment?bookingSlotId=' + $('#bookingSlot').val() +
-                '&bookingDate=' + $('#bookingDate').val() + '&mobile=919596173109&name=' +
+                '&bookingDate=' + $('#bookingDate').val() + '&mobile=' + mobile + '&name=' +
                 $('#name').val() + '&address=' + $('#address').val() +
                 '&contactNo=' + $('#contactNo').val() +
                 '&petName=' + $('#petName').val(),
@@ -110,9 +112,12 @@
                 $('#loading').hide();
             },
             success: function (res) {
+                console.log(res);
                 if (res.added) {
                     alert(res.message);
                     window.location = '/user/appointments';
+                } else {
+                    alert(res.message);
                 }
             },
             error: function (err) {

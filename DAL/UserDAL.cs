@@ -198,5 +198,37 @@ namespace DAL
                 };
             }
         }
+
+        public ApiResponse SaveDoctorVerificationImages(User user)
+        {
+            try
+            {
+                var _user = _context.Users.FirstOrDefault(u => u.Mobile == user.Mobile);
+                if (_user != null)
+                {
+                    _user.IdentityCardImagePath = user.IdentityCardImagePath;
+                    _user.AadharCardImagePath = user.AadharCardImagePath;
+                    _context.SaveChanges();
+                    return new ApiResponse
+                    {
+                        Added = true,
+                        Message = "Verification documents uploaded successfully. Please wait for the admin to approve your account."
+                    };
+                }
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
+            catch (Exception)
+            {
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
+        }
     }
 }

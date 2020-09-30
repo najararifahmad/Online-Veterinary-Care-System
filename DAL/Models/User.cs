@@ -21,6 +21,8 @@ namespace DAL.Models
         public string Mobile { get; set; }
         public string Address { get; set; }
         public bool IsActive { get; set; }
+        public string IdentityCardImagePath { get; set; }
+        public string AadharCardImagePath { get; set; }
         public DateTime? AddedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }

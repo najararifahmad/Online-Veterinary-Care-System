@@ -85,6 +85,10 @@
     <Compile Include="Migrations\202009250608249_MobileRemovedFromAppointment.designer.cs">
       <DependentUpon>202009250608249_MobileRemovedFromAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009300613383_UserVerificationAdded.cs" />
+    <Compile Include="Migrations\202009300613383_UserVerificationAdded.designer.cs">
+      <DependentUpon>202009300613383_UserVerificationAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -124,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009250608249_MobileRemovedFromAppointment.resx">
       <DependentUpon>202009250608249_MobileRemovedFromAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009300613383_UserVerificationAdded.resx">
+      <DependentUpon>202009300613383_UserVerificationAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

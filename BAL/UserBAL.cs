@@ -36,9 +36,13 @@ namespace BAL
             return _dal.RejectDoctor(mobile);
         }
 
-            public ApiResponse RegisterUser(User user)
+        public ApiResponse RegisterUser(User user)
         {
             return _dal.RegisterUser(user);
+        }
+        public ApiResponse SaveDoctorVerificationImages(User user)
+        {
+            return _dal.SaveDoctorVerificationImages(user);
         }
     }
 }

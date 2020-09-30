@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewBag.Title = "Doctor Verification Page";
+}
+
+<section class="clearfix" style="margin-top: 200px; margin-bottom: 50px">
+    <div class="container d-flex justify-content-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="text-center">Please upload your Identity Card and Aadhar Card images below for verification.</p>
+                        <div class="form-group">
+                            <label for="fupImageIdentityCard">Identity Card Image</label>
+                            <input type="file" id="fupImageIdentityCard" name="fupImageIdentityCard" class="form-control" />
+                            <div id="statustxtIdentityCard"></div>
+                            <div id="progressPercentIdentityCard" class="progress-bar progress-bar-info" style="height: 10px;width:0%"></div>
+                            <img id="photoIdentityCard" style="height:100px" />
+                        </div>
+                        <div class="form-group">
+                            <label for="fupImageAadharCard">Aadhar Card Image</label>
+                            <input type="file" id="fupImageAadharCard" name="fupImageAadharCard" class="form-control" />
+                            <div id="statustxtAadharCard"></div>
+                            <div id="progressPercentAadharCard" class="progress-bar progress-bar-info" style="height: 10px;width:0%"></div>
+                            <img id="photoAadharCard" style="height:100px" />
+                        </div>
+                        <div class="text-center"><button type="button" title="Save" onclick="saveDocuments()">Save</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var username = JSON.parse(localStorage.getItem('token')).username;
+    var identityCardImagePath = '';
+    var aadharCardImagePath = '';
+    var _URL = window.URL || window.webkitURL;
+    $("#fupImageIdentityCard").on('change', function () {
+
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onload = function () {
+                sendFileIdentityCard(file);
+            };
+            img.onerror = function () {
+                alert("Not a valid file:" + file.type);
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+
+    function sendFileIdentityCard(file) {
+        if (!$('#fupImageIdentityCard').val().endsWith('.jpg') &&
+            !$('#fupImageIdentityCard').val().endsWith('.JPG') &&
+            !$('#fupImageIdentityCard').val().endsWith('.jpeg') &&
+            !$('#fupImageIdentityCard').val().endsWith('.JPEG') &&
+            !$('#fupImageIdentityCard').val().endsWith('.png') &&
+            !$('#fupImageIdentityCard').val().endsWith('.PNG')) {
+            alert('Only jpg, JPG, jpeg, JPEG, png and PNG file types allowed.');
+            $('#fupImageIdentityCard').focus();
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('file', $('#fupImageIdentityCard')[0].files[0]);
+        identityCardImagePath = '/DoctorDocuments/' + username + '/IdentityCard/' + $('#fupImageIdentityCard')[0].files[0].name;
+        formData.append('username', username);
+        $.ajax({
+            type: 'post',
+            url: '/api/User/UploadIdentityCardImage',
+            data: formData,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Check if upload property exists
+                    //update progressbar percent complete
+                    $('#statustxtIdentityCard').html('0%');
+                    // For handling the progress of the upload
+                    myXhr.upload.addEventListener('progress', progressHandlingFunctionIdentityCard, false);
+
+                }
+                return myXhr;
+            },
+            success: function (status) {
+                if (status != 'error') {
+                    $('#statustxtIdentityCard').html('');
+                    $('#progressPercentIdentityCard').css('width', '0%');
+                    $('#photoIdentityCard').attr('src', identityCardImagePath);
+                }
+            },
+            processData: false,
+            contentType: false,
+            error: function (xhr) {
+                alert("Some error occured... " + xhr.statusText);
+            }
+        });
+    }
+
+    function progressHandlingFunctionIdentityCard(e) {
+        if (e.lengthComputable) {
+            var percentage = Math.floor((e.loaded / e.total) * 100);
+            //update progressbar percent complete
+            $('#statustxtIdentityCard').html(percentage + '%');
+            $('#progressPercentIdentityCard').css('width', percentage + '%');
+            console.log("Value = " + e.loaded + " :: Max =" + e.total);
+        }
+    }
+
+
+    $("#fupImageAadharCard").on('change', function () {
+
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+            img.onload = function () {
+                sendFileAadharCard(file);
+            };
+            img.onerror = function () {
+                alert("Not a valid file:" + file.type);
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+
+    function sendFileAadharCard(file) {
+        if (!$('#fupImageAadharCard').val().endsWith('.jpg') &&
+            !$('#fupImageAadharCard').val().endsWith('.JPG') &&
+            !$('#fupImageAadharCard').val().endsWith('.jpeg') &&
+            !$('#fupImageAadharCard').val().endsWith('.JPEG') &&
+            !$('#fupImageAadharCard').val().endsWith('.png') &&
+            !$('#fupImageAadharCard').val().endsWith('.PNG')) {
+            alert('Only jpg, JPG, jpeg, JPEG, png and PNG file types allowed.');
+            $('#fupImageAadharCard').focus();
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('file', $('#fupImageAadharCard')[0].files[0]);
+        aadharCardImagePath = '/DoctorDocuments/' + username + '/AadharCard/' + $('#fupImageIdentityCard')[0].files[0].name;
+        formData.append('username', username);
+        $.ajax({
+            type: 'post',
+            url: '/api/User/UploadAadharCardImage',
+            data: formData,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Check if upload property exists
+                    //update progressbar percent complete
+                    $('#statustxtAadharCard').html('0%');
+                    // For handling the progress of the upload
+                    myXhr.upload.addEventListener('progress', progressHandlingFunctionAadharCard, false);
+
+                }
+                return myXhr;
+            },
+            success: function (status) {
+                if (status != 'error') {
+                    $('#statustxtAadharCard').html('');
+                    $('#progressPercentAadharCard').css('width', '0%');
+                    $('#photoAadharCard').attr('src', aadharCardImagePath);
+                }
+            },
+            processData: false,
+            contentType: false,
+            error: function (xhr) {
+                alert("Some error occured... " + xhr.statusText);
+            }
+        });
+    }
+
+    function progressHandlingFunctionAadharCard(e) {
+        if (e.lengthComputable) {
+            var percentage = Math.floor((e.loaded / e.total) * 100);
+            //update progressbar percent complete
+            $('#statustxtAadharCard').html(percentage + '%');
+            $('#progressPercentAadharCard').css('width', percentage + '%');
+            console.log("Value = " + e.loaded + " :: Max =" + e.total);
+        }
+    }
+
+
+    function saveDocuments() {
+        if ($('#fupImageIdentityCard').val() == '') {
+            alert('Please upload Identity Card image first.');
+            $('#fupImageIdentityCard').focus();
+            return;
+        }
+
+        if ($('#fupImageAadharCard').val() == '') {
+            alert('Please upload Aadhar Card image first.');
+            $('#fupImageAadharCard').focus();
+            return;
+        }
+
+        var obj = {};
+
+        obj.identityCardImagePath = '/DoctorDocuments/' + username + '/IdentityCard/' + $('#fupImageIdentityCard')[0].files[0].name;
+        obj.aadharCardImagePath = '/DoctorDocuments/' + username + '/AadharCard/' + $('#fupImageAadharCard')[0].files[0].name;
+        obj.mobile = username;
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "/api/User/SaveDoctorVerificationImages",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $("#imageLoading").show();
+            },
+            complete: function () {
+                $("#imageLoading").hide();
+            },
+            success: function (r) {
+                alert(r.message);
+
+            },
+            error: function (x) {
+                swal('Oops!', x.statusText, 'error');
+            }
+        });
+    }
+</script>

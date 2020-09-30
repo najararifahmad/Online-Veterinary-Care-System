@@ -72,11 +72,13 @@
             return;
         }
 
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
+
         var obj = {};
         obj.day = $('#day').val();
         obj.fromTo = $('#fromTo').val();
         obj.numPatients = $('#numPatients').val();
-        obj.mobile = "9596173109";
+        obj.mobile = mobile;
 
         $.ajax({
             url: '/api/BookingSlot/Post',

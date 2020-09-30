@@ -39,8 +39,9 @@
     });
 
     function loadBookingSlots() {
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
         $.ajax({
-            url: '/api/BookingSlot/GetBookingSlotsForDoctor?mobile=9596173109',
+            url: '/api/BookingSlot/GetBookingSlotsForDoctor?mobile=' + mobile,
             dataType: 'json',
             method: 'GET',
             beforeSend: function () {
