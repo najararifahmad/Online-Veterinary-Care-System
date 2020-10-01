@@ -56,6 +56,37 @@
 <script>
     function doRegister() {
 
+        if (!/^[a-zA-Z ]+$/.test($('#name').val())) {
+            alert('Only letters and spaces are allowed in name.');
+            $('#name').focus();
+            return;
+        }
+        var reg = /^([A-Za-z0-9_\-\.])+\@@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (!reg.test($('#email').val())) {
+            alert('Please enter a valid email.');
+            $('#email').focus();
+            return;
+        }
+
+        if (!/[0-9]+/.test($('#mobile').val())) {
+            alert('Only digits allowed in mobile no.');
+            $('#mobile').focus();
+            return;
+        }
+
+        if ($('#address').val() === '') {
+            alert('Address is required.');
+            $('#address').focus();
+            return;
+        }
+
+        if ($('#password').val() === '') {
+            alert('Password is required');
+            $('#password').focus();
+            return;
+        }
+
         if ($('#passwordRegister').val() != $('#confirmPassword').val()) {
             alert('Passwords do not match.');
             return;

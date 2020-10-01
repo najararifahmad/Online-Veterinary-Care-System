@@ -68,7 +68,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>
                     <li><a id="login" href="/login">Login</a></li>
                     <li><a id="gotoAccount" href="javascript:void(0)" onclick="gotoAccount()" style="display:none">Account</a></li>
-                    <li><a id="logout" href="javascript:void(0)" onclick="logout()" style="display:none"></a></li>
+                    <li><a id="logout" href="javascript:void(0)" onclick="logout()" style="display:none">Logout</a></li>
                 </ul>
             </nav><!-- .main-nav-->
         </div>
@@ -258,6 +258,11 @@
             } else if (role == 'User') {
                 window.location = '/user';
             }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location = '/login';
         }
 
     </script>
