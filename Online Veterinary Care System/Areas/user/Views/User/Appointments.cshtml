@@ -19,14 +19,14 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-hover table-responsive">
+                <table id="appointmentsTable" class="table table-hover table-responsive">
                     <thead>
                         <tr>
                             <th>Token No</th>
                             <th>Doctor Name</th>
+                            <th>Doctor Address</th>
                             <th>Appointment Date</th>
                             <th>Booking Slot</th>
-                            <th>#</th>
                         </tr>
                     </thead>
                 </table>
@@ -34,4 +34,49 @@
         </div>
     </div>
 </section>
+
+<script>
+    $(document).ready(function () {
+        loadAppointments();
+    });
+
+    function loadAppointments() {
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
+        $.ajax({
+            url: '/api/User/GetAppointmentsForUser?mobile=' + mobile,
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.length <= 0) {
+                    $('#appointmentsTable').hide();
+                } else {
+                    $('#appointmentsTable').show();
+                }
+
+                $('#appointmentsTable > tbody').remove();
+                var html = '<tbody>';
+                for (var i = 0; i < res.length; i++) {
+                    html += '<tr><td>' + res[i].tokenNo +
+                        '</td><td>' + res[i].doctorName + '</td>' +
+                        '<td>' + res[i].doctorAddress + '</td>' +
+                        '<td>' + new Date(res[i].appointmentDate).toLocaleDateString() + '</td>' +
+                        '<td>' + res[i].bookingSlot + '</td>' +
+                        '</tr>';
+                    html += '</tbody>';
+                }
+                $('#appointmentsTable').append(html);
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err);
+            }
+        });
+    }
+</script>
 

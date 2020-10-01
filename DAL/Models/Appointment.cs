@@ -15,6 +15,7 @@ namespace DAL.Models
         public string Mobile { get; set; }
         [ForeignKey("Mobile")]
         public User User { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime AppointmentDate { get; set; }
         public long BookingSlotID { get; set; }
         [ForeignKey("BookingSlotID")]

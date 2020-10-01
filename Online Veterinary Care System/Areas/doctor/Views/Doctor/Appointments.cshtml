@@ -3,5 +3,66 @@
     ViewBag.Title = "Appointments";
 }
 
-<h2>Appointments</h2>
+
+<!-- Counts Section -->
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="appointmentsTable" class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Token No</th>
+                            <th>Appointment Date</th>
+                            <th>Booking Slot</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        loadAppointments();
+    });
+
+    function loadAppointments() {
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
+        $.ajax({
+            url: '/api/User/GetAppointmentsForDoctor?mobile=' + mobile,
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.length <= 0) {
+                    $('#appointmentsTable').hide();
+                } else {
+                    $('#appointmentsTable').show();
+                }
+
+                $('#appointmentsTable > tbody').remove();
+                var html = '<tbody>';
+                for (var i = 0; i < res.length; i++) {
+                    html += '<tr><td>' + res[i].tokenNo +
+                        '<td>' + new Date(res[i].appointmentDate).toLocaleDateString() + '</td>' +
+                        '<td>' + res[i].bookingSlot + '</td>' +
+                        '</tr>';
+                    html += '</tbody>';
+                }
+                $('#appointmentsTable').append(html);
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err);
+            }
+        });
+    }
+</script>
 

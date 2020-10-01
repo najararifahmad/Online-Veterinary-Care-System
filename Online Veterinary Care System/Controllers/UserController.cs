@@ -55,6 +55,18 @@ namespace Online_Veterinary_Care_System.Controllers
         {
             return Ok(_bal.GetActiveDoctors());
         }
+        [HttpGet]
+        [Route("api/User/GetAppointmentsForUser")]
+        public IHttpActionResult GetAppointmentsForUser(string mobile)
+        {
+            return Ok(_bal.GetAppointmentsForUser(mobile));
+        }
+        [HttpGet]
+        [Route("api/User/GetAppointmentsForDoctor")]
+        public IHttpActionResult GetAppointmentsForDoctor(string mobile)
+        {
+            return Ok(_bal.GetAppointmentsForDoctor(mobile));
+        }
 
         [HttpPost]
         [Route("api/User/GenerateAdmin")]

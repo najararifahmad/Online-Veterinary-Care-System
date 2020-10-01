@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label><strong>Contact No:</strong></label>
-                    <input id="contactNo" placeholder="Contact No" type="text"
+                    <input id="contactNo" placeholder="Contact No" type="number"
                            class="form-control"
                            required />
                 </div>
@@ -83,14 +83,30 @@
         }
         if ($('#name').val() == '') {
             alert('Please enter Name.');
+            $('#name').focus();
             return;
         }
+
+        if (!/^[a-zA-Z ]+$/.test($('#name').val())) {
+            alert('Only letters and spaces are allowed in name.');
+            $('#name').focus();
+            return;
+        }
+
         if ($('#address').val() == '') {
             alert('Please enter Address.');
+            $('#address').focus();
             return;
         }
         if ($('#contactNo').val() == '') {
             alert('Please enter Contact No.');
+            $('#contactNo').focus();
+            return;
+        }
+
+        if ($('#contactNo').val().length > 10) {
+            alert('Contact No should not be more than 10 digits.');
+            $('#contactNo').focus();
             return;
         }
 

@@ -23,6 +23,43 @@ namespace DAL
         {
             return _context.Users.FirstOrDefault(u => u.Mobile == username);
         }
+        public IEnumerable<object> GetAppointmentsForUser(string mobile)
+        {
+            var query = from a in _context.Appointments
+                        join b in _context.BookingSlots
+                        on a.BookingSlotID equals b.ID
+                        join u in _context.Users
+                        on b.Mobile equals u.Mobile
+                        where a.Mobile == mobile
+                        select new
+                        {
+                            TokenNo = a.TokenNo,
+                            DoctorName = u.Name,
+                            DoctorAddress = u.Address,
+                            AppointmentDate = a.AppointmentDate,
+                            BookingSlot = b.FromTo
+                        };
+
+            return query.OrderByDescending(q => q.AppointmentDate).ToList();
+        }
+
+        public IEnumerable<object> GetAppointmentsForDoctor(string mobile)
+        {
+            var query = from a in _context.Appointments
+                        join b in _context.BookingSlots
+                        on a.BookingSlotID equals b.ID
+                        join u in _context.Users
+                        on b.Mobile equals u.Mobile
+                        where b.Mobile == mobile
+                        select new
+                        {
+                            TokenNo = a.TokenNo,
+                            AppointmentDate = a.AppointmentDate,
+                            BookingSlot = b.FromTo
+                        };
+
+            return query.OrderByDescending(q => q.AppointmentDate).ToList();
+        }
 
         public ApiResponse GenerateAdmin(string password)
         {

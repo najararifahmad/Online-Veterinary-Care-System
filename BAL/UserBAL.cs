@@ -24,6 +24,14 @@ namespace BAL
         {
             return _dal.GetUserByUsername(username);
         }
+        public IEnumerable<object> GetAppointmentsForUser(string mobile)
+        {
+            return _dal.GetAppointmentsForUser(mobile);
+        }
+        public IEnumerable<object> GetAppointmentsForDoctor(string mobile)
+        {
+            return _dal.GetAppointmentsForDoctor(mobile);
+        }
 
         public ApiResponse GenerateAdmin(string password)
         {
