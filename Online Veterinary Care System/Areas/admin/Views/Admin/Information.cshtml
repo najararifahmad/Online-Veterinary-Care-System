@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Information";
+}
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Information Dissemination</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="informationDissemination">Information Dissemination</label>
+                    <textarea id="informationDissemination" style="height:200px" class="form-control"
+                              placeholder="Information Dissemination" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="fertilityManagement">Fertility Management</label>
+                    <textarea id="fertilityManagement" style="height:200px" class="form-control"
+                              placeholder="Fertility Management" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hygenicMilk">Hygenic Milk</label>
+                    <textarea id="hygenicMilk" style="height:200px" class="form-control"
+                              placeholder="Hygenic Milk" required></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="saveInformation()"><i class="fa fa-save"></i> SAVE</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#informationDissemination').summernote({
+        height: 200
+    });
+    $('#fertilityManagement').summernote({
+        height: 200
+    });
+    $('#hygenicMilk').summernote({
+        height: 200
+    });
+
+    vaccination = '';
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/Information/Get",
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (r) {
+                $('#informationDissemination').summernote('code', r.informationDissemination);
+                $('#fertilityManagement').summernote('code', r.fertilityManagement);
+                $('#hygenicMilk').summernote('code', r.hygenicMilk);
+                vaccination = r.vaccination;
+            },
+            error: function (x) {
+                alert(x.statusText);
+            }
+        });
+    });
+
+    function saveInformation() {
+        var obj = {};
+        obj.informationDissemination = $('#informationDissemination').summernote('code');
+        obj.fertilityManagement = $('#fertilityManagement').summernote('code');
+        obj.hygenicMilk = $('#hygenicMilk').summernote('code');
+        obj.vaccination = vaccination;
+
+        $.ajax({
+            type: "POST",
+            url: "/api/Information/Post",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (r) {
+                var obj = r;
+
+                alert(obj.message);
+
+            },
+            error: function (x) {
+                alert(x.statusText);
+            }
+        });
+    }
+</script>

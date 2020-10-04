@@ -14,5 +14,14 @@ namespace Online_Veterinary_Care_System.Controllers
 
             return View();
         }
+
+        public ActionResult Vaccination()
+        {
+            return View();
+        }
+        public ActionResult Information()
+        {
+            return View();
+        }
     }
 }

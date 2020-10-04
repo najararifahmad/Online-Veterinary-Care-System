@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AppointmentDAL.cs" />
     <Compile Include="BookingSlotDAL.cs" />
+    <Compile Include="InformationDAL.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.designer.cs">
       <DependentUpon>202009181339402_FirstMigration.cs</DependentUpon>
@@ -89,10 +90,15 @@
     <Compile Include="Migrations\202009300613383_UserVerificationAdded.designer.cs">
       <DependentUpon>202009300613383_UserVerificationAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010021539097_InformationVaccinationAdded.cs" />
+    <Compile Include="Migrations\202010021539097_InformationVaccinationAdded.designer.cs">
+      <DependentUpon>202010021539097_InformationVaccinationAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BookingSlot.cs" />
+    <Compile Include="Models\Information.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009300613383_UserVerificationAdded.resx">
       <DependentUpon>202009300613383_UserVerificationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010021539097_InformationVaccinationAdded.resx">
+      <DependentUpon>202010021539097_InformationVaccinationAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

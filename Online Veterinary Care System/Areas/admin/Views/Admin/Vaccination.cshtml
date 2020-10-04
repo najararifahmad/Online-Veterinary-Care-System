@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Vaccination";
+}
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Vaccination</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="vaccination">Vaccination</label>
+                    <textarea id="vaccination" style="height:200px" class="form-control"
+                              placeholder="Vaccination" required></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="saveVaccination()"><i class="fa fa-save"></i> SAVE</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('#vaccination').summernote({
+        height: 200
+    });
+
+    informationDissemination = '';
+    fertilityManagement = '';
+    hygenicMilk = '';
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/Information/Get",
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (r) {
+                $('#vaccination').summernote('code', r.vaccination);
+                informationDissemination = r.informationDissemination;
+                fertilityManagement = r.fertilityManagement;
+                hygenicMilk = r.hygenicMilk;
+            },
+            error: function (x) {
+                alert(x.statusText);
+            }
+        });
+    });
+
+    function saveVaccination() {
+        var obj = {};
+        obj.vaccination = $('#vaccination').summernote('code');
+        obj.informationDissemination = informationDissemination;
+        obj.fertilityManagement = fertilityManagement;
+        obj.hygenicMilk = hygenicMilk;
+
+        $.ajax({
+            type: "POST",
+            url: "/api/Information/Post",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (r) {
+                var obj = r;
+
+                alert(obj.message);
+
+            },
+            error: function (x) {
+                alert(x.statusText);
+            }
+        });
+    }
+</script>
+

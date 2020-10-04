@@ -199,6 +199,7 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\BookingSlotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -220,6 +221,7 @@
     <Content Include="Areas\admin\css\style.red.css" />
     <Content Include="Areas\admin\css\style.sea.css" />
     <Content Include="Areas\admin\css\style.violet.css" />
+    <Content Include="Areas\admin\css\summernote.css" />
     <Content Include="Areas\admin\fonts\dashboard.svg" />
     <Content Include="Areas\admin\icons-reference\fonts\dashboard.svg" />
     <Content Include="Areas\admin\icons-reference\icons-reference.html" />
@@ -538,6 +540,7 @@
     <Content Include="Areas\admin\js\charts-home.js" />
     <Content Include="Areas\admin\js\front.js" />
     <Content Include="Areas\admin\js\grasp_mobile_progress_circle-1.0.0.min.js" />
+    <Content Include="Areas\admin\js\summernote.js" />
     <Content Include="Areas\admin\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Areas\admin\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Areas\admin\vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -866,6 +869,11 @@
     <Content Include="Areas\user\Views\User\Index.cshtml" />
     <Content Include="Areas\user\Views\User\Appointments.cshtml" />
     <Content Include="Areas\user\Views\User\BookAppointment.cshtml" />
+    <Content Include="Areas\admin\Views\Admin\Vaccination.cshtml" />
+    <Content Include="Areas\admin\Views\Admin\Information.cshtml" />
+    <Content Include="Areas\admin\css\font\summernote.eot" />
+    <Content Include="Areas\admin\css\font\summernote.ttf" />
+    <Content Include="Areas\admin\css\font\summernote.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -889,6 +897,8 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\DoctorRegister.cshtml" />
     <Content Include="Views\Login\DoctorVerification.cshtml" />
+    <Content Include="Views\Home\Vaccination.cshtml" />
+    <Content Include="Views\Home\Information.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

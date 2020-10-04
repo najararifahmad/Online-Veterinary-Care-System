@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Information";
+}
+
+<section class="dashboard-counts section-padding">
+    <div class="container" style="margin-top:200px;margin-bottom:20px">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Information Dissemination</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="informationDissemination"> </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top:30px">
+                <h2>Fertility Management</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="fertilityManagement"> </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top:30px">
+                <h2>Hygenic Milk</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="hygenicMilk"> </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/Information/Get",
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            complete: function () {
+                $("#loading").hide();
+            },
+            success: function (r) {
+                $('#informationDissemination').html(r.informationDissemination);
+                $('#fertilityManagement').html(r.fertilityManagement);
+                $('#hygenicMilk').html(r.hygenicMilk);
+            },
+            error: function (x) {
+                alert(x.statusText);
+            }
+        });
+    });
+</script>

@@ -18,5 +18,6 @@ namespace DAL
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<BookingSlot> BookingSlots { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Information> Information { get; set; }
     }
 }

@@ -23,5 +23,13 @@ namespace Online_Veterinary_Care_System.Areas.admin.Controllers
 
             return View(doctors);
         }
+        public ActionResult Vaccination()
+        {
+            return View();
+        }
+        public ActionResult Information()
+        {
+            return View();
+        }
     }
 }

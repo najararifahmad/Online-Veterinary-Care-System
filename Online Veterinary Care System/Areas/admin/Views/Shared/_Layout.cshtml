@@ -24,8 +24,24 @@
     <link rel="stylesheet" href="/areas/admin/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/areas/admin/css/custom.css">
+    <link rel="stylesheet" href="~/areas/admin/css/summernote.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="/areas/admin/img/favicon.ico">
+
+    <!-- JavaScript files-->
+    <script src="/areas/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/areas/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/areas/admin/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="/areas/admin/vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="/areas/admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="/areas/admin/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/areas/admin/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/areas/admin/js/charts-home.js"></script>
+    <!-- Main File-->
+    <script src="/areas/admin/js/front.js"></script>
+    <script src="~/assets/js/appLogic.js"></script>
+
+    <script src="~/Areas/admin/js/summernote.js"></script>
 </head>
 <body>
     <!-- Side Navbar -->
@@ -47,14 +63,16 @@
                 <ul id="side-main-menu" class="side-menu list-unstyled">
                     <li><a href="/admin"> <i class="icon-home"></i>Home</a></li>
                     <li><a href="/admin/doctors"> <i class="icon-form"></i>Doctors</a></li>
+                    <li><a href="/admin/vaccination"> <i class="icon-form"></i>Vaccination</a></li>
+                    <li><a href="/admin/information"> <i class="icon-form"></i>Information</a></li>
                     @*<li>
-                            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
-                            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                            </ul>
-                        </li>*@
+            <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
+            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+            </ul>
+        </li>*@
                 </ul>
             </div>
         </div>
@@ -187,18 +205,7 @@
         <img src="~/assets/img/loading.gif" style="margin-left:30%;margin-top:200px" />
     </div>
 
-    <!-- JavaScript files-->
-    <script src="/areas/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="/areas/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/areas/admin/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-    <script src="/areas/admin/vendor/jquery.cookie/jquery.cookie.js"></script>
-    <script src="/areas/admin/vendor/chart.js/Chart.min.js"></script>
-    <script src="/areas/admin/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="/areas/admin/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="/areas/admin/js/charts-home.js"></script>
-    <!-- Main File-->
-    <script src="/areas/admin/js/front.js"></script>
-    <script src="~/assets/js/appLogic.js"></script>
+    
 
     <script>
         $(document).ready(function () {
