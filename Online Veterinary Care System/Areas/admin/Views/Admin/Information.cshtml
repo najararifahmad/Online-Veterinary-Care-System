@@ -57,10 +57,12 @@
                 $("#loading").hide();
             },
             success: function (r) {
-                $('#informationDissemination').summernote('code', r.informationDissemination);
-                $('#fertilityManagement').summernote('code', r.fertilityManagement);
-                $('#hygenicMilk').summernote('code', r.hygenicMilk);
-                vaccination = r.vaccination;
+                if (r != null) {
+                    $('#informationDissemination').summernote('code', r.informationDissemination);
+                    $('#fertilityManagement').summernote('code', r.fertilityManagement);
+                    $('#hygenicMilk').summernote('code', r.hygenicMilk);
+                    vaccination = r.vaccination;
+                }
             },
             error: function (x) {
                 alert(x.statusText);

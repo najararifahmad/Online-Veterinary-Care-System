@@ -1,7 +1,9 @@
 ﻿using DAL.Models;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -270,6 +272,60 @@ namespace DAL
                     Message = "Error occured. Please try again..."
                 };
             }
+        }
+
+        public ApiResponse ChangePassword(string mobile, string oldPassword, string newPassword)
+        {
+            try
+            {
+                if(oldPassword == newPassword)
+                {
+                    return new ApiResponse
+                    {
+                        Added = false,
+                        Message = "Old and New Passwords can't be same."
+                    };
+                }
+                var user = _context.Users.Where(u => u.Mobile == mobile && u.Password == oldPassword).SingleOrDefault();
+                if (user != null)
+                {
+                    user.Password = newPassword;
+                    _context.SaveChanges();
+                    return new ApiResponse
+                    {
+                        Added = true,
+                        Message = "Password changed successfully. Please login again to access your account."
+                    };
+                }
+                else
+                {
+                    return new ApiResponse
+                    {
+                        Added = false,
+                        Message = "Please enter correct Old Password and try again..."
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
+        }
+        public bool VerifyRecaptcha(string token, string secretKey)
+        {
+            HttpClient client = new HttpClient();
+            string res = client.GetStringAsync("https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + token).Result;
+            dynamic resultObj = JValue.Parse(res);
+            if (resultObj.success != null && resultObj.success != true)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

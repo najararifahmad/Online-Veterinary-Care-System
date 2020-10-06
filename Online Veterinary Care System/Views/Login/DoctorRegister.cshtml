@@ -75,6 +75,12 @@
             return;
         }
 
+        if ($('#mobile').val().length > 10 || $('#mobile').val().length < 10) {
+            alert('Exactly 10 digits allowed in Mobile Number.');
+            $('#mobile').focus();
+            return;
+        }
+
         if ($('#address').val() === '') {
             alert('Address is required.');
             $('#address').focus();
@@ -89,12 +95,6 @@
 
         if ($('#passwordRegister').val() != $('#confirmPassword').val()) {
             alert('Passwords do not match.');
-            return;
-        }
-
-        if ($('#mobile').val().length > 10) {
-            alert('Only 10 digits allowed in Mobile Number.');
-            $('#mobile').focus();
             return;
         }
 

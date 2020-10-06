@@ -51,9 +51,11 @@
                 $("#loading").hide();
             },
             success: function (r) {
-                $('#informationDissemination').html(r.informationDissemination);
-                $('#fertilityManagement').html(r.fertilityManagement);
-                $('#hygenicMilk').html(r.hygenicMilk);
+                if (r != null) {
+                    $('#informationDissemination').html(r.informationDissemination);
+                    $('#fertilityManagement').html(r.fertilityManagement);
+                    $('#hygenicMilk').html(r.hygenicMilk);
+                }
             },
             error: function (x) {
                 alert(x.statusText);

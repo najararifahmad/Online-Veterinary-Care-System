@@ -206,6 +206,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CaptchaImageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\OAuthProvider.cs" />
     <Compile Include="Startup.cs" />
@@ -874,6 +875,9 @@
     <Content Include="Areas\admin\css\font\summernote.eot" />
     <Content Include="Areas\admin\css\font\summernote.ttf" />
     <Content Include="Areas\admin\css\font\summernote.woff" />
+    <Content Include="Areas\admin\Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Areas\doctor\Views\Doctor\ChangePassword.cshtml" />
+    <Content Include="Areas\user\Views\User\ChangePassword.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -906,7 +910,6 @@
     <Folder Include="Areas\admin\vendor\font-awesome\scss\" />
     <Folder Include="Areas\doctor\Data\" />
     <Folder Include="Areas\user\Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

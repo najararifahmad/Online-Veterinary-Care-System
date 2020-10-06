@@ -9,10 +9,10 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h2>Existing User, Login</h2>
+                        <h2>Existing User Login</h2>
                     </div>
                     <div class="card-body" id="footer" style="padding:10px">
-                        <form class="php-email-form" >
+                        <form class="php-email-form">
                             <div class="form-group">
                                 <input id="username" placeholder="Email/Mobile" type="text" class="form-control"
                                        required />
@@ -31,14 +31,14 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h2>New User, Register</h2>
+                        <h2>New User Register</h2>
                     </div>
                     <div class="card-body" id="footer" style="padding:10px">
                         <form class="php-email-form">
                             <div class="form-group">
                                 <input id="name" placeholder="Name" type="text"
                                        class="form-control"
-                                       required/>
+                                       required />
                             </div>
                             <div class="form-group">
                                 <input id="email" placeholder="Email" type="email"
@@ -58,9 +58,21 @@
                                 <input id="confirmPassword" placeholder="Confirm Password" type="password" class="form-control"
                                        required />
                             </div>
-                            <div class="text-center"><button type="button" class="btn btn-primary"
-                                                             title="Register"
-                                                             onclick="doRegister()">Register</button></div>
+                            <img id="CaptchaImage" src="/Login/ShowCaptchaImage">
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <input name="CaptchaText" id="CaptchaText"
+                                       class="form-control" placeholder="Enter the text as shown above" />
+                            </div>
+
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary"
+                                        title="Register"
+                                        onclick="doRegister()">
+                                    Register
+                                </button>
+                            </div>
                         </form>
                         <div class="text-center">
                             @Html.ActionLink("Register as a Doctor", "DoctorRegister", "Login")
@@ -74,7 +86,21 @@
 </section>
 
 <script>
+    var generatedCaptcha = '';
+
+
     function doLogin() {
+        if ($('#username').val() == '') {
+            alert('Please enter username.');
+            $('#username').focus();
+            return;
+        }
+        if ($('#password').val() == '') {
+            alert('Please enter password.');
+            $('#password').focus();
+            return;
+        }
+
         $.ajax({
             url: "/api/token",
             type: "POST",
@@ -124,9 +150,15 @@
             return;
         }
 
-        if ($('#password').val() === '') {
+        if ($('#mobile').val().length > 10 || $('#mobile').val().length < 10) {
+            alert('Exactly 10 digits allowed in Mobile Number.');
+            $('#mobile').focus();
+            return;
+        }
+
+        if ($('#passwordRegister').val() === '') {
             alert('Password is required');
-            $('#password').focus();
+            $('#passwordRegister').focus();
             return;
         }
 
@@ -135,26 +167,9 @@
             return;
         }
 
-        if ($('#mobile').val().length > 10) {
-            alert('Only 10 digits allowed in Mobile Number.');
-            $('#mobile').focus();
-            return;
-        }
-
-        var userObj = {};
-        userObj.name = $('#name').val();
-        userObj.email = $('#email').val();
-        userObj.mobile = $('#mobile').val();
-        userObj.password = $('#passwordRegister').val();
-        userObj.isActive = true;
-        userObj.role = "User";
-
         $.ajax({
-            url: '/api/User/Post',
-            data: JSON.stringify(userObj),
-            method: 'POST',
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
+            url: '/Login/GetCaptchaString',
+            method: 'GET',
             beforeSend: function () {
                 $('#loading').show();
             },
@@ -162,17 +177,51 @@
                 $('#loading').hide();
             },
             success: function (res) {
-                if (res.added) {
-                    alert('Registration done successfully. Please login now to access your account.');
-                } else {
-                    alert(res.message);
+                if (res !== $('#CaptchaText').val()) {
+                    alert('Captcha not matched. Please try again...');
+                    location.reload();
+                    return;
                 }
+
+                var userObj = {};
+                userObj.name = $('#name').val();
+                userObj.email = $('#email').val();
+                userObj.mobile = $('#mobile').val();
+                userObj.password = $('#passwordRegister').val();
+                userObj.isActive = true;
+                userObj.role = "User";
+
+                $.ajax({
+                    url: '/api/User/Post',
+                    data: JSON.stringify(userObj),
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    beforeSend: function () {
+                        $('#loading').show();
+                    },
+                    complete: function () {
+                        $('#loading').hide();
+                    },
+                    success: function (res) {
+                        if (res.added) {
+                            alert('Registration done successfully. Please login now to access your account.');
+                        } else {
+                            alert(res.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log('Error: ', err);
+                        alert(err);
+                    }
+                });
             },
             error: function (err) {
                 console.log('Error: ', err);
-                alert(err);
+                alert(err.statusText);
             }
         });
+
     }
 </script>
 

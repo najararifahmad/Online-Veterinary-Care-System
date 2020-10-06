@@ -31,7 +31,9 @@
                 $("#loading").hide();
             },
             success: function (r) {
-                $('#vaccination').html(r.vaccination);
+                if (r != null) {
+                    $('#vaccination').html(r.vaccination);
+                }
             },
             error: function (x) {
                 alert(x.statusText);

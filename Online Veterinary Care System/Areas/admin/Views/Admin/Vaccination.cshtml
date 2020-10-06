@@ -43,10 +43,13 @@
                 $("#loading").hide();
             },
             success: function (r) {
-                $('#vaccination').summernote('code', r.vaccination);
-                informationDissemination = r.informationDissemination;
-                fertilityManagement = r.fertilityManagement;
-                hygenicMilk = r.hygenicMilk;
+                if (r !== null) {
+                    $('#vaccination').summernote('code', r.vaccination);
+                    informationDissemination = r.informationDissemination;
+                    fertilityManagement = r.fertilityManagement;
+                    hygenicMilk = r.hygenicMilk;
+                }
+                
             },
             error: function (x) {
                 alert(x.statusText);

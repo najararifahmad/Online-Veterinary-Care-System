@@ -161,5 +161,20 @@ namespace Online_Veterinary_Care_System.Controllers
                 return Ok(false);
             }
         }
+        [HttpPost]
+        [Route("api/User/ChangePassword")]
+        [Authorize(Roles = "Admin,Doctor,User")]
+        public IHttpActionResult ChangePassword(string mobile, string oldPassword, string newPassword)
+        {
+            newPassword = HashPassword(newPassword);
+            oldPassword = HashPassword(oldPassword);
+            return Ok(_bal.ChangePassword(mobile, oldPassword, newPassword));
+        }
+        [HttpPost]
+        [Route("api/User/VerifyCaptcha")]
+        public IHttpActionResult VerifyCaptcha(string token, string secretKey)
+        {
+            return Ok(_bal.VerifyRecaptcha(token, secretKey));
+        }
     }
 }

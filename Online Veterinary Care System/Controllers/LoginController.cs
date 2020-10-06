@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Online_Veterinary_Care_System.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -21,6 +22,14 @@ namespace Online_Veterinary_Care_System.Controllers
         public ActionResult DoctorVerification()
         {
             return View();
+        }
+        public CaptchaImageResult ShowCaptchaImage()
+        {
+            return new CaptchaImageResult();
+        }
+        public string GetCaptchaString()
+        {
+            return Session["captchastring"].ToString();
         }
     }
 }

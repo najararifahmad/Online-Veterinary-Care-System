@@ -23,5 +23,9 @@ namespace Online_Veterinary_Care_System.Areas.user.Controllers
         {
             return View();
         }
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
     }
 }

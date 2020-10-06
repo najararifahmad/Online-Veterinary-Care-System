@@ -56,5 +56,13 @@ namespace BAL
         {
             return _dal.SaveDoctorVerificationImages(user);
         }
+        public ApiResponse ChangePassword(string mobile, string oldPassword, string newPassword)
+        {
+            return _dal.ChangePassword(mobile, oldPassword, newPassword);
+        }
+        public bool VerifyRecaptcha(string token, string secretKey)
+        {
+            return _dal.VerifyRecaptcha(token, secretKey);
+        }
     }
 }
