@@ -41,10 +41,20 @@
                                 <input id="confirmPassword" placeholder="Confirm Password" type="password" class="form-control"
                                        required />
                             </div>
+                            <img id="CaptchaImage" src="/Login/ShowCaptchaImage">
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <input name="CaptchaText" id="CaptchaText"
+                                       class="form-control" placeholder="Enter the text as shown above" />
+                            </div>
                             <div class="text-center">
-                            <button type="button" class="btn btn-primary"
-                                    title="Register"
-                                    onclick="doRegister()">Register</button></div>
+                                <button type="button" class="btn btn-primary"
+                                        title="Register"
+                                        onclick="doRegister()">
+                                    Register
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -98,22 +108,10 @@
             return;
         }
 
-        var userObj = {};
-        userObj.name = $('#name').val();
-        userObj.email = $('#email').val();
-        userObj.mobile = $('#mobile').val();
-        userObj.address = $('#address').val();
-        userObj.password = $('#passwordRegister').val();
-        userObj.isActive = false;
-        userObj.role = "Doctor";
-
 
         $.ajax({
-            url: '/api/User/Post',
-            data: JSON.stringify(userObj),
-            method: 'POST',
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
+            url: '/Login/GetCaptchaString',
+            method: 'GET',
             beforeSend: function () {
                 $('#loading').show();
             },
@@ -121,15 +119,49 @@
                 $('#loading').hide();
             },
             success: function (res) {
-                if (res.added) {
-                    alert('Registration done successfully. Please login to your account and upload the necessary identification documents for verification.');
-                } else {
-                    alert(res.message);
+                if (res !== $('#CaptchaText').val()) {
+                    alert('Captcha not matched. Please try again...');
+                    $('#CaptchaImage').removeAttr('src').attr('src', '/Login/ShowCaptchaImage?' + new Date().getTime());
+                    return;
                 }
+
+                var userObj = {};
+                userObj.name = $('#name').val();
+                userObj.email = $('#email').val();
+                userObj.mobile = $('#mobile').val();
+                userObj.address = $('#address').val();
+                userObj.password = $('#passwordRegister').val();
+                userObj.isActive = false;
+                userObj.role = "Doctor";
+
+                $.ajax({
+                    url: '/api/User/Post',
+                    data: JSON.stringify(userObj),
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    beforeSend: function () {
+                        $('#loading').show();
+                    },
+                    complete: function () {
+                        $('#loading').hide();
+                    },
+                    success: function (res) {
+                        if (res.added) {
+                            alert('Registration done successfully. Please login now to access your account.');
+                        } else {
+                            alert(res.message);
+                        }
+                    },
+                    error: function (err) {
+                        console.log('Error: ', err);
+                        alert(err.statusText);
+                    }
+                });
             },
             error: function (err) {
                 console.log('Error: ', err);
-                alert(err);
+                alert(err.statusText);
             }
         });
     }

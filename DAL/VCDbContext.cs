@@ -19,5 +19,6 @@ namespace DAL
         public DbSet<BookingSlot> BookingSlots { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Information> Information { get; set; }
+        public DbSet<InformationDissemination> InformationDisseminations { get; set; }
     }
 }

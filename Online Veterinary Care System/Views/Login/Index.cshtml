@@ -179,7 +179,7 @@
             success: function (res) {
                 if (res !== $('#CaptchaText').val()) {
                     alert('Captcha not matched. Please try again...');
-                    location.reload();
+                    $('#CaptchaImage').removeAttr('src').attr('src', '/Login/ShowCaptchaImage?' + new Date().getTime());
                     return;
                 }
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<DAL.Models.InformationDissemination>
 @{
     ViewBag.Title = "Information";
 }
@@ -12,12 +12,28 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="informationDissemination"> </div>
+                <div class="card">
+                    <div class="card-body">
+                        @foreach(var m in Model)
+                        {
+                            <a href="@m.FilePath" target="_blank">
+                                @m.InformationText
+                            </a>
+                            <br/>
+                            <br/>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" style="margin-top:30px">
+            <div class="col-md-11" style="margin-top:30px">
                 <h2>Fertility Management</h2>
+            </div>
+            <div class="col-md-1" style="margin-top:30px">
+                <a href="/Home/DownloadFertilityManagement" download>
+                    Download
+                </a>
             </div>
         </div>
         <div class="row">
@@ -26,8 +42,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" style="margin-top:30px">
+            <div class="col-md-11" style="margin-top:30px">
                 <h2>Hygenic Milk</h2>
+            </div>
+            <div class="col-md-1">
+                <a href="/Home/DownloadHygenicMilk" download>
+                    Download
+                </a>
             </div>
         </div>
         <div class="row">
@@ -52,7 +73,6 @@
             },
             success: function (r) {
                 if (r != null) {
-                    $('#informationDissemination').html(r.informationDissemination);
                     $('#fertilityManagement').html(r.fertilityManagement);
                     $('#hygenicMilk').html(r.hygenicMilk);
                 }

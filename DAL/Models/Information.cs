@@ -12,7 +12,6 @@ namespace DAL.Models
         [Key]
         public long ID { get; set; }
         public string Vaccination { get; set; }
-        public string InformationDissemination { get; set; }
         public string FertilityManagement { get; set; }
         public string HygenicMilk { get; set; }
     }

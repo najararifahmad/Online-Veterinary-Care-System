@@ -45,7 +45,6 @@
             success: function (r) {
                 if (r !== null) {
                     $('#vaccination').summernote('code', r.vaccination);
-                    informationDissemination = r.informationDissemination;
                     fertilityManagement = r.fertilityManagement;
                     hygenicMilk = r.hygenicMilk;
                 }
@@ -60,7 +59,6 @@
     function saveVaccination() {
         var obj = {};
         obj.vaccination = $('#vaccination').summernote('code');
-        obj.informationDissemination = informationDissemination;
         obj.fertilityManagement = fertilityManagement;
         obj.hygenicMilk = hygenicMilk;
 

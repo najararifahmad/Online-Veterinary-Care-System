@@ -878,6 +878,8 @@
     <Content Include="Areas\admin\Views\Admin\ChangePassword.cshtml" />
     <Content Include="Areas\doctor\Views\Doctor\ChangePassword.cshtml" />
     <Content Include="Areas\user\Views\User\ChangePassword.cshtml" />
+    <Content Include="Areas\admin\Views\Admin\InformationDissemination.cshtml" />
+    <Content Include="Areas\admin\Views\Admin\AddInformationDissemination.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

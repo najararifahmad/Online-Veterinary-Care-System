@@ -1,4 +1,5 @@
 ﻿using BAL;
+using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,16 @@ namespace Online_Veterinary_Care_System.Areas.admin.Controllers
             return View();
         }
         public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        public ActionResult InformationDissemination()
+        {
+            InformationBAL _bal = new InformationBAL();
+            IEnumerable<InformationDissemination> ids = _bal.GetInformationDisseminations();
+            return View(ids);
+        }
+        public ActionResult AddInformationDissemination()
         {
             return View();
         }
