@@ -1,7 +1,10 @@
-﻿using BAL;
+﻿using ActiveUp.Net.Dns;
+using ActiveUp.Net.Mail;
+using BAL;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -45,6 +48,19 @@ namespace Online_Veterinary_Care_System.Areas.admin.Controllers
         public ActionResult AddInformationDissemination()
         {
             return View();
+        }
+
+        public ActionResult MailBox()
+        {
+            Imap4Client client = new Imap4Client();
+
+            client.ConnectSsl("imap.gmail.com", 993);
+            client.Login(ConfigurationManager.AppSettings["fromEmail"], ConfigurationManager.AppSettings["fromPassword"]);
+
+            Mailbox mails = client.SelectMailbox("inbox");
+            MessageCollection messages = mails.SearchParse("ALL");
+
+            return View(messages);
         }
     }
 }

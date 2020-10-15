@@ -20,6 +20,9 @@ namespace DAL.Models
         [Key]
         public string Mobile { get; set; }
         public string Address { get; set; }
+        public string HospitalAddress { get; set; }
+        public string OfficialMail { get; set; }
+        public string OfficialFax { get; set; }
         public bool IsActive { get; set; }
         public string IdentityCardImagePath { get; set; }
         public string AadharCardImagePath { get; set; }

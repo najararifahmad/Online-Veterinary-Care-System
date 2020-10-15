@@ -111,10 +111,19 @@
     <Compile Include="Migrations\202010130930261_InformationDisseminationAddedDate.designer.cs">
       <DependentUpon>202010130930261_InformationDisseminationAddedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010140943589_UserUpdated.cs" />
+    <Compile Include="Migrations\202010140943589_UserUpdated.designer.cs">
+      <DependentUpon>202010140943589_UserUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010141551580_ChattingTableAdded.cs" />
+    <Compile Include="Migrations\202010141551580_ChattingTableAdded.designer.cs">
+      <DependentUpon>202010141551580_ChattingTableAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BookingSlot.cs" />
+    <Compile Include="Models\Conversation.cs" />
     <Compile Include="Models\Information.cs" />
     <Compile Include="Models\InformationDissemination.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -164,6 +173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010130930261_InformationDisseminationAddedDate.resx">
       <DependentUpon>202010130930261_InformationDisseminationAddedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010140943589_UserUpdated.resx">
+      <DependentUpon>202010140943589_UserUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010141551580_ChattingTableAdded.resx">
+      <DependentUpon>202010141551580_ChattingTableAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -25,9 +25,13 @@
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>Address</th>
+                            <th>Hospital Address</th>
+                            <th>Official Email</th>
+                            <th>Official Fax</th>
                             <th>Registered Date</th>
                             <th>Identity Card</th>
                             <th>Aadhar Card</th>
+                            <th>#</th>
                             <th>#</th>
                         </tr>
                     </thead>
@@ -39,6 +43,9 @@
                             <td>@m.Email</td>
                             <td>@m.Mobile</td>
                             <td>@m.Address</td>
+                            <td>@m.HospitalAddress</td>
+                            <td>@m.OfficialMail</td>
+                            <td>@m.OfficialFax</td>
                             <td>@m.AddedOn</td>
                             <td>
                                 <a href="javascript:void(0)" onclick="showDocument('@m.IdentityCardImagePath', 'Identity Card')">
@@ -58,6 +65,11 @@
                             {
                                 <td><a href="javascript:void(0)" onclick="rejectDoctor('@m.Mobile')">Reject</a></td>
                             }
+                            <td>
+                                <a href="javascript:void(0)" onclick="sendConfirmationEmail('@m.OfficialMail', '@m.Name', '@m.Mobile')">
+                                    Send Confirmation Mail
+                                </a>
+                            </td>
                         </tr>
                         }
                     </tbody>
@@ -110,6 +122,27 @@
             error: function (err) {
                 console.log('Error: ', err);
                 alert(err);
+            }
+        });
+    }
+
+    function sendConfirmationEmail(officialEmail, doctorName, mobile) {
+        $.ajax({
+            url: '/api/User/SendMail?toEmail=' + officialEmail +
+                '&doctorName=' + doctorName + '&mobile=' + mobile,
+            method: 'POST',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                alert(res);
+            },
+            error: function (err) {
+                console.log('Error: ', err);
+                alert(err.statusText);
             }
         });
     }

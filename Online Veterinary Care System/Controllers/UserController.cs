@@ -6,15 +6,19 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Text;
 using System.Web;
 using System.Web.Http;
+using ActiveUp.Net.Mail;
+using System.Configuration;
 
 namespace Online_Veterinary_Care_System.Controllers
 {
     public class UserController : ApiController
     {
         UserBAL _bal = new UserBAL();
+        private Imap4Client client = new Imap4Client();
 
         [NonAction]
         public string HashPassword(string password)
@@ -41,6 +45,47 @@ namespace Online_Veterinary_Care_System.Controllers
         {
             return Ok(_bal.GetUserByUsername(username));
         }
+
+        [HttpPost]
+        [Route("api/User/SendMail")]
+        public IHttpActionResult SendMail(string toEmail, string doctorName, string mobile)
+        {
+            try
+            {
+                string fromAddress = ConfigurationManager.AppSettings["fromEmail"];
+                string toAddress = toEmail;
+                string fromPassword = ConfigurationManager.AppSettings["fromPassword"];
+                string subject = "Doctor Confirmation Email";
+                string body = "Sir,<br/> Please confirm if " + doctorName + " having Mobile No " + mobile +
+                              " is working in your hospital.<br/><br/><b>Regards<br/>Online Veterinary Care System</b>";
+
+                var smtp = new System.Net.Mail.SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress, fromPassword),
+                    Timeout = 20000
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                })
+                {
+                    smtp.Send(message);
+                }
+                return Ok("Confirmation Email Sent.");
+            }
+            catch(Exception ex)
+            {
+                return Ok("Error occured. " + ex.Message);
+            }
+        }
+
 
         [HttpGet]
         [Route("api/User/GetDoctors")]

@@ -34,6 +34,21 @@
                                           required></textarea>
                             </div>
                             <div class="form-group">
+                                <textarea id="hospitalAddress" placeholder="Hospital Address"
+                                          class="form-control"
+                                          required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input id="officialEmail" placeholder="Official Email" type="email"
+                                       class="form-control"
+                                       required />
+                            </div>
+                            <div class="form-group">
+                                <input id="officialFax" placeholder="Official Fax" type="text"
+                                       class="form-control"
+                                       required />
+                            </div>
+                            <div class="form-group">
                                 <input id="passwordRegister" placeholder="Password" type="password" class="form-control"
                                        required />
                             </div>
@@ -97,6 +112,24 @@
             return;
         }
 
+        if ($('#hospitalAddress').val() === '') {
+            alert('Hospital Address is required.');
+            $('#hospitalAddress').focus();
+            return;
+        }
+
+        if (!reg.test($('#officialEmail').val())) {
+            alert('Please enter a valid official email.');
+            $('#officialEmail').focus();
+            return;
+        }
+
+        if ($('#officialFax').val() === '') {
+            alert('Official Fax is required.');
+            $('#officialFax').focus();
+            return;
+        }
+
         if ($('#password').val() === '') {
             alert('Password is required');
             $('#password').focus();
@@ -130,6 +163,9 @@
                 userObj.email = $('#email').val();
                 userObj.mobile = $('#mobile').val();
                 userObj.address = $('#address').val();
+                userObj.hospitalAddress = $('#hospitalAddress').val();
+                userObj.officialEmail = $('#officialEmail').val();
+                userObj.officialFax = $('#officialFax').val();
                 userObj.password = $('#passwordRegister').val();
                 userObj.isActive = false;
                 userObj.role = "Doctor";
