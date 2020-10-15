@@ -62,6 +62,8 @@
   <ItemGroup>
     <Compile Include="AppointmentDAL.cs" />
     <Compile Include="BookingSlotDAL.cs" />
+    <Compile Include="ConversationDAL.cs" />
+    <Compile Include="ConversationHistoryDAL.cs" />
     <Compile Include="InformationDAL.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.cs" />
     <Compile Include="Migrations\202009181339402_FirstMigration.designer.cs">
@@ -119,11 +121,20 @@
     <Compile Include="Migrations\202010141551580_ChattingTableAdded.designer.cs">
       <DependentUpon>202010141551580_ChattingTableAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010151041500_ConversationHistoryAdded.cs" />
+    <Compile Include="Migrations\202010151041500_ConversationHistoryAdded.designer.cs">
+      <DependentUpon>202010151041500_ConversationHistoryAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010151114313_ConversationHistoryChanged.cs" />
+    <Compile Include="Migrations\202010151114313_ConversationHistoryChanged.designer.cs">
+      <DependentUpon>202010151114313_ConversationHistoryChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BookingSlot.cs" />
     <Compile Include="Models\Conversation.cs" />
+    <Compile Include="Models\ConversationHistory.cs" />
     <Compile Include="Models\Information.cs" />
     <Compile Include="Models\InformationDissemination.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -179,6 +190,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010141551580_ChattingTableAdded.resx">
       <DependentUpon>202010141551580_ChattingTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010151041500_ConversationHistoryAdded.resx">
+      <DependentUpon>202010151041500_ConversationHistoryAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010151114313_ConversationHistoryChanged.resx">
+      <DependentUpon>202010151114313_ConversationHistoryChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

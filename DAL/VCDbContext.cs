@@ -21,5 +21,6 @@ namespace DAL
         public DbSet<Information> Information { get; set; }
         public DbSet<InformationDissemination> InformationDisseminations { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<ConversationHistory> ConversationHistories { get; set; }
     }
 }

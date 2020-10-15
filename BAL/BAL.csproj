@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="AppointmentBAL.cs" />
     <Compile Include="BookingSlotBAL.cs" />
+    <Compile Include="ConversationBAL.cs" />
+    <Compile Include="ConversationHistoryBAL.cs" />
     <Compile Include="InformationBAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBAL.cs" />
