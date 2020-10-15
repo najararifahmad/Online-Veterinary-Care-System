@@ -27,5 +27,9 @@ namespace Online_Veterinary_Care_System.Areas.user.Controllers
         {
             return View();
         }
+        public ActionResult Chat(string receiver)
+        {
+            return View();
+        }
     }
 }

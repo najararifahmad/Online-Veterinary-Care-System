@@ -14,7 +14,7 @@ namespace DAL
         {
             return _context.Conversations.Where(c => (c.Sender == sender && c.Receiver == receiver) ||
                                             (c.Sender == receiver && c.Receiver == sender))
-                                            .OrderByDescending(c => c.AddedOn).ToList();
+                                            .OrderBy(c => c.AddedOn).ToList();
         }
 
         public ApiResponse AddMessage(Conversation conversation)

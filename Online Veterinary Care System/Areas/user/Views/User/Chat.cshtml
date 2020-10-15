@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+}
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 id="name"></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="chatbox" style="width: 100%;height:400px;background:white;overflow-y:scroll"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" id="message"
+                          class="form-control"
+                          placeholder="Type your message here"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    name = '';
+    $(document).ready(function () {
+        getUserDetails();
+    });
+
+    function getUserDetails() {
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
+        $.ajax({
+            url: '/api/User/GetUserByUsername?username=' + mobile,
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                name = res.name;
+                loadChats();
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err.statusText);
+            }
+        });
+    }
+
+    // Read a page's GET URL variables and return them as an associative array.
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function loadChats() {
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
+        var receiver = decodeURIComponent(getUrlVars()["receiver"]);
+
+        $.ajax({
+            url: '/api/Conversation/GetConversations?sender=' + name + '&receiver=' + receiver,
+            dataType: 'json',
+            method: 'GET',
+            success: function (res) {
+                console.log(res);
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].sender === name) {
+                        $('#chatbox').append(
+                            '<div style="display:block;padding:10px;margin:10px;width:50%;color:white;background:#527bf7;border-radius:10px;float:right">' +
+                            res[i].message +
+                            '</div><br/>'
+                        );
+                    } else {
+                        $('#chatbox').append(
+                            '<div style="display:block;padding:10px;width:50%;margin:10px;color:white;background:#7a7c82;border-radius:10px;float:left">' +
+                            res[i].message +
+                            '</div><br/>'
+                        );
+                    }
+                    
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err.statusText);
+            }
+        });
+    }
+
+    function sendChat() {
+        var message = $('#message').val();
+        var receiver = decodeURIComponent(getUrlVars()["receiver"]);
+        var conversationObj = {
+            sender: name,
+            receiver: receiver,
+            message: message,
+            filePath: ''
+        }
+        $.ajax({
+            url: '/api/Conversation/Post',
+            data: JSON.stringify(conversationObj),
+            method: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                console.log(res);
+                if (res.added) {
+                    $('#chatbox').append(
+                        '<div style="width:50%;padding:10px;margin:10px;color:white;background:#527bf7;border-radius:10px;float:right">' +
+                        message +
+                        '</div>'
+                    );
+                    $('#message').val('');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err.statusText);
+            }
+        });
+    }
+
+    $('#message').keydown(function (e) {
+        if (e.keyCode == 13) {
+            sendChat();
+        }
+    });
+</script>
+
