@@ -31,6 +31,10 @@
         getUserDetails();
     });
 
+    setInterval(function () {
+        loadChats();
+    }, 1000);
+
     function getUserDetails() {
         var mobile = JSON.parse(localStorage.getItem('token')).username;
         $.ajax({
@@ -70,28 +74,30 @@
         var mobile = JSON.parse(localStorage.getItem('token')).username;
         var receiver = decodeURIComponent(getUrlVars()["receiver"]);
 
+        var html = $('#chatbox').html();
+
         $.ajax({
             url: '/api/Conversation/GetConversations?sender=' + name + '&receiver=' + receiver,
             dataType: 'json',
             method: 'GET',
             success: function (res) {
                 console.log(res);
+                html = '';
                 for (var i = 0; i < res.length; i++) {
                     if (res[i].sender === name) {
-                        $('#chatbox').append(
-                            '<div style="display:block;padding:10px;margin:10px;width:50%;color:white;background:#527bf7;border-radius:10px;float:right">' +
+                        html += '<div style="display:block;padding:10px;margin:10px;width:50%;color:white;background:#527bf7;border-radius:10px;float:right">' +
                             res[i].message +
-                            '</div><br/>'
-                        );
+                            '</div><br/>';
                     } else {
-                        $('#chatbox').append(
-                            '<div style="display:block;padding:10px;width:50%;margin:10px;color:white;background:#7a7c82;border-radius:10px;float:left">' +
+                        html += '<div style="display:block;padding:10px;width:50%;margin:10px;color:white;background:#7a7c82;border-radius:10px;float:left">' +
                             res[i].message +
-                            '</div><br/>'
-                        );
+                            '</div><br/>';
                     }
                     
                 }
+
+                $('#chatbox').html(html);
+                $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
             },
             error: function (err) {
                 console.log(err);
