@@ -1,0 +1,162 @@
+﻿@model IEnumerable<DAL.Models.User>
+@{
+    ViewBag.Title = "Messages";
+}
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4" style="margin-bottom:20px">
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            <strong>Select Doctor: </strong>
+                        </div>
+                        <div class="col">
+                            <select id="doctors"
+                                    class="form-control">
+                                @foreach (var doctor in Model)
+                                {
+                                    <option value="@doctor.Name">@doctor.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary"
+                                    onclick="gotoChatPage()">
+                                Message
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <a href="/user/chat?receiver=Admin" class="btn btn-default">Message Admin</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group" id="messages">
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    var name = '';
+    $(document).ready(function () {
+        getUserDetails();
+    });
+
+    function gotoChatPage() {
+        window.location = '/admin/chat?receiver=' + $('#doctors').val();
+    }
+
+    setInterval(function () {
+        loadMessages();
+    }, 1600);
+
+    function loadMessagesStart() {
+        var html = $('#messages').html();
+
+        $.get({
+            url: '/api/ConversationHistory/GetConversationHistories?name=' + name,
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                html = '';
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].sender === name) {
+                        html += '<li class="list-group-item">' +
+                            '<a href="chat?receiver=' + res[i].receiver + '" style="text-decoration:none">' +
+                            '<b style="color:black">' + res[i].receiver + '</b><br/>' +
+                            'You: ' + res[i].message +
+                            '</a>' +
+                            '</li>';
+                    } else {
+                        html += '<li class="list-group-item">' +
+                            '<a href="chat?receiver=' + res[i].sender + '" style="text-decoration:none">' +
+                            '<b style="color:black">' + res[i].sender + '</b><br/>' +
+                            res[i].sender + ': ' + res[i].message +
+                            '</a>' +
+                            '</li>';
+                    }
+                }
+
+                $('#messages').html(html);
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err.statusText);
+            }
+        });
+    }
+
+    function loadMessages() {
+        var html = $('#messages').html();
+
+        $.get({
+            url: '/api/ConversationHistory/GetConversationHistories?name=' + name,
+            dataType: 'json',
+            method: 'GET',
+            success: function (res) {
+                html = '';
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].sender === name) {
+                        html += '<li class="list-group-item">' +
+                            '<a href="chat?receiver=' + res[i].receiver + '" style="text-decoration:none">' +
+                            '<b style="color:black">' + res[i].receiver + '</b><br/>' +
+                            'You: ' + res[i].message +
+                            '</a>' +
+                            '</li>';
+                    } else {
+                        html += '<li class="list-group-item">' +
+                            '<a href="chat?receiver=' + res[i].sender + '" style="text-decoration:none">' +
+                            '<b style="color:black">' + res[i].sender + '</b><br/>' +
+                            res[i].sender + ': ' + res[i].message +
+                            '</a>' +
+                            '</li>';
+                    }
+                }
+
+                $('#messages').html(html);
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err.statusText);
+            }
+        });
+    }
+
+    function getUserDetails() {
+        var mobile = JSON.parse(localStorage.getItem('token')).username;
+        $.ajax({
+            url: '/api/User/GetUserByUsername?username=' + mobile,
+            dataType: 'json',
+            method: 'GET',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                name = res.name;
+                loadMessagesStart();
+            },
+            error: function (err) {
+                console.log(err);
+                alert(err.statusText);
+            }
+        });
+    }
+</script>
+

@@ -33,5 +33,13 @@ namespace Online_Veterinary_Care_System.Areas.doctor.Controllers
         {
             return View();
         }
+        public ActionResult Chat(string receiver)
+        {
+            return View();
+        }
+        public ActionResult Messages()
+        {
+            return View();
+        }
     }
 }

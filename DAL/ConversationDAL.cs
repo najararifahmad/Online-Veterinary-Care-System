@@ -21,9 +21,13 @@ namespace DAL
         {
             try
             {
+                ConversationHistoryDAL _dal = new ConversationHistoryDAL();
+
                 conversation.AddedOn = DateTime.Now;
                 _context.Conversations.Add(conversation);
                 _context.SaveChanges();
+
+                _dal.AddConversationHistory(conversation.Sender, conversation.Receiver, conversation.Message);
                 return new ApiResponse
                 {
                     Added = true,

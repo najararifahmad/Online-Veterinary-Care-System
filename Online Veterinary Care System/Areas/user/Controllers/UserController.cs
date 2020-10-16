@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BAL;
+using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +32,12 @@ namespace Online_Veterinary_Care_System.Areas.user.Controllers
         public ActionResult Chat(string receiver)
         {
             return View();
+        }
+        public ActionResult Messages()
+        {
+            UserBAL _bal = new UserBAL();
+            IEnumerable<User> doctors = _bal.GetActiveDoctors();
+            return View(doctors);
         }
     }
 }

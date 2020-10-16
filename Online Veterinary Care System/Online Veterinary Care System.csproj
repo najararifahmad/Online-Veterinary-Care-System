@@ -918,6 +918,11 @@
     <Content Include="Areas\admin\Views\Admin\MailBox.cshtml" />
     <Content Include="Areas\admin\Views\Admin\ReadMail.cshtml" />
     <Content Include="Areas\user\Views\User\Chat.cshtml" />
+    <Content Include="Areas\user\Views\User\Messages.cshtml" />
+    <Content Include="Areas\doctor\Views\Doctor\Messages.cshtml" />
+    <Content Include="Areas\doctor\Views\Doctor\Chat.cshtml" />
+    <Content Include="Areas\admin\Views\Admin\Messages.cshtml" />
+    <Content Include="Areas\admin\Views\Admin\Chat.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

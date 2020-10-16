@@ -62,5 +62,15 @@ namespace Online_Veterinary_Care_System.Areas.admin.Controllers
 
             return View(messages);
         }
+        public ActionResult Chat(string receiver)
+        {
+            return View();
+        }
+        public ActionResult Messages()
+        {
+            UserBAL _bal = new UserBAL();
+            IEnumerable<User> doctors = _bal.GetActiveDoctors();
+            return View(doctors);
+        }
     }
 }
