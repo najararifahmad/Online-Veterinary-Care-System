@@ -17,6 +17,10 @@ namespace DAL
         {
             return _context.Users.Where(u => u.Role == "Doctor").OrderByDescending(u => u.AddedOn).ToList();
         }
+        public IEnumerable<User> GetUsers()
+        {
+            return _context.Users.Where(u => u.Role == "User").OrderByDescending(u => u.AddedOn).ToList();
+        }
         public IEnumerable<User> GetActiveDoctors()
         {
             return _context.Users.Where(u => u.Role == "Doctor" && u.IsActive == true).OrderBy(u => u.Name).ToList();
@@ -202,6 +206,46 @@ namespace DAL
             }
         }
 
+        public ApiResponse ActivateUser(string mobile)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Mobile == mobile);
+                if (user != null)
+                {
+                    if (user.IsActive)
+                    {
+                        return new ApiResponse
+                        {
+                            Added = false,
+                            Message = "User active already."
+                        };
+                    }
+
+                    user.IsActive = true;
+                    _context.SaveChanges();
+                    return new ApiResponse
+                    {
+                        Added = true,
+                        Message = "User activated successfully."
+                    };
+                }
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "User not found. Please try again..."
+                };
+            }
+            catch (Exception)
+            {
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
+        }
+
         public ApiResponse RejectDoctor(string mobile)
         {
             try
@@ -230,6 +274,46 @@ namespace DAL
                 {
                     Added = false,
                     Message = "Doctor not found. Please try again..."
+                };
+            }
+            catch (Exception)
+            {
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
+        }
+
+        public ApiResponse DeactivateUser(string mobile)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Mobile == mobile);
+                if (user != null)
+                {
+                    if (!user.IsActive)
+                    {
+                        return new ApiResponse
+                        {
+                            Added = false,
+                            Message = "User deactivated already"
+                        };
+                    }
+
+                    user.IsActive = false;
+                    _context.SaveChanges();
+                    return new ApiResponse
+                    {
+                        Added = true,
+                        Message = "User deactivated successfully."
+                    };
+                }
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "User not found. Please try again..."
                 };
             }
             catch (Exception)
@@ -326,6 +410,37 @@ namespace DAL
             }
 
             return true;
+        }
+
+        public ApiResponse DeleteDoctor(string mobile)
+        {
+            try
+            {
+                var doctor = _context.Users.Where(u => u.Mobile == mobile).FirstOrDefault();
+                if(doctor != null)
+                {
+                    _context.Users.Remove(doctor);
+                    _context.SaveChanges();
+                    return new ApiResponse
+                    {
+                        Added = true,
+                        Message = "Doctor deleted successfully."
+                    };
+                }
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Doctor not found. Please try again..."
+                };
+            }
+            catch (Exception)
+            {
+                return new ApiResponse
+                {
+                    Added = false,
+                    Message = "Error occured. Please try again..."
+                };
+            }
         }
     }
 }

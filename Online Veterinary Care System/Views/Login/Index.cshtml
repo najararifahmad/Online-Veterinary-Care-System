@@ -223,5 +223,11 @@
         });
 
     }
+
+    $('#password').keydown(function (e) {
+        if (e.keyCode == 13) {
+            doLogin();
+        }
+    });
 </script>
 

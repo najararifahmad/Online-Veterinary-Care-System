@@ -1,0 +1,110 @@
+﻿@model IEnumerable<DAL.Models.User>
+@{
+    ViewBag.Title = "Users";
+}
+
+<style>
+    th {
+        border: 1px solid black;
+    }
+</style>
+
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Registered Users</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Registration Date</th>
+                            <th>#</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var m in Model)
+                        {
+                            <tr>
+                                <td>@m.Name</td>
+                                <td>@m.Email</td>
+                                <td>@m.Mobile</td>
+                                <td>@m.Address</td>
+                                <td>@m.AddedOn</td>
+                                @if (m.IsActive == false)
+                                {
+                                    <td><a href="javascript:void(0)" onclick="activateUser('@m.Mobile')">Activate</a></td>
+                                }
+                                else
+                                {
+                                    <td><a href="javascript:void(0)" onclick="deactivateUser('@m.Mobile')">Deactivate</a></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function activateUser(mobile) {
+
+        $.ajax({
+            url: '/api/User/ActivateUser?mobile=' + mobile,
+            method: 'POST',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.added) {
+                    alert(res.message);
+                    location.reload();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function (err) {
+                console.log('Error: ', err);
+                alert(err);
+            }
+        });
+    }
+
+    function deactivateUser(mobile) {
+        $.ajax({
+            url: '/api/User/DeactivateUser?mobile=' + mobile,
+            method: 'POST',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.added) {
+                    alert(res.message);
+                    location.reload();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function (err) {
+                console.log('Error: ', err);
+                alert(err);
+            }
+        });
+    }
+</script>

@@ -133,6 +133,10 @@
     <Compile Include="Migrations\202010151334477_ConversationStuffCompleted.designer.cs">
       <DependentUpon>202010151334477_ConversationStuffCompleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010251258585_ConfirmationMailSentAdded.cs" />
+    <Compile Include="Migrations\202010251258585_ConfirmationMailSentAdded.designer.cs">
+      <DependentUpon>202010251258585_ConfirmationMailSentAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -203,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010151334477_ConversationStuffCompleted.resx">
       <DependentUpon>202010151334477_ConversationStuffCompleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010251258585_ConfirmationMailSentAdded.resx">
+      <DependentUpon>202010251258585_ConfirmationMailSentAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

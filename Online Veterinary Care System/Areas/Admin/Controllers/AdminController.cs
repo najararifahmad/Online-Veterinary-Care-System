@@ -27,6 +27,14 @@ namespace Online_Veterinary_Care_System.Areas.admin.Controllers
 
             return View(doctors);
         }
+        public ActionResult Users()
+        {
+            UserBAL _bal = new UserBAL();
+
+            var users = _bal.GetUsers();
+
+            return View(users);
+        }
         public ActionResult Vaccination()
         {
             return View();

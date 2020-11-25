@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Http;
 using ActiveUp.Net.Mail;
 using System.Configuration;
+using DAL;
 
 namespace Online_Veterinary_Care_System.Controllers
 {
@@ -48,7 +49,7 @@ namespace Online_Veterinary_Care_System.Controllers
 
         [HttpPost]
         [Route("api/User/SendMail")]
-        public IHttpActionResult SendMail(string toEmail, string doctorName, string mobile)
+        public IHttpActionResult SendMail(string id, string toEmail, string doctorName, string mobile)
         {
             try
             {
@@ -78,6 +79,16 @@ namespace Online_Veterinary_Care_System.Controllers
                 {
                     smtp.Send(message);
                 }
+
+                VCDbContext _context = new VCDbContext();
+                Guid actualId = Guid.Parse(id);
+                var user = _context.Users.FirstOrDefault(u => u.ID == actualId);
+                if(user != null)
+                {
+                    user.ConfirmationMailSent = true;
+                    _context.SaveChanges();
+                }
+
                 return Ok("Confirmation Email Sent.");
             }
             catch(Exception ex)
@@ -92,6 +103,13 @@ namespace Online_Veterinary_Care_System.Controllers
         public IHttpActionResult GetDoctors()
         {
             return Ok(_bal.GetDoctors());
+        }
+
+        [HttpGet]
+        [Route("api/User/GetUsers")]
+        public IHttpActionResult GetUsers()
+        {
+            return Ok(_bal.GetUsers());
         }
 
         [HttpGet]
@@ -136,6 +154,20 @@ namespace Online_Veterinary_Care_System.Controllers
         }
 
         [HttpPost]
+        [Route("api/User/ActivateUser")]
+        public IHttpActionResult ActivateUser(string mobile)
+        {
+            return Ok(_bal.ActivateUser(mobile));
+        }
+
+        [HttpPost]
+        [Route("api/User/DeactivateUser")]
+        public IHttpActionResult DeactivateUser(string mobile)
+        {
+            return Ok(_bal.DeactivateUser(mobile));
+        }
+
+        [HttpPost]
         [Route("api/User/SaveDoctorVerificationImages")]
         public IHttpActionResult SaveDoctorVerificationImages(User user)
         {
@@ -149,6 +181,12 @@ namespace Online_Veterinary_Care_System.Controllers
             user.Password = HashPassword(user.Password);
             user.AddedOn = DateTime.Now;
             return Ok(_bal.RegisterUser(user));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(string mobile)
+        {
+            return Ok(_bal.DeleteDoctor(mobile));
         }
 
         [HttpPost]

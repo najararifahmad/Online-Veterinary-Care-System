@@ -149,8 +149,9 @@
             return;
         }
 
+
         $.ajax({
-            url: '/api/BookingSlot/GetBookingSlotsForDoctorAndDate?mobile=9596173109&bookingDate=' + $('#bookingDate').val(),
+            url: '/api/BookingSlot/GetBookingSlotsForDoctorAndDate?mobile=' + $('#doctor').val() + '&bookingDate=' + $('#bookingDate').val(),
             dataType: 'json',
             method: 'GET',
             beforeSend: function () {

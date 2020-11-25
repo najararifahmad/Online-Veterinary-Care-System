@@ -16,6 +16,10 @@ namespace BAL
         {
             return _dal.GetDoctors();
         }
+        public IEnumerable<User> GetUsers()
+        {
+            return _dal.GetUsers();
+        }
         public IEnumerable<User> GetActiveDoctors()
         {
             return _dal.GetActiveDoctors();
@@ -43,9 +47,18 @@ namespace BAL
             return _dal.ApproveDoctor(mobile);
         }
 
+        public ApiResponse ActivateUser(string mobile)
+        {
+            return _dal.ActivateUser(mobile);
+        }
+
         public ApiResponse RejectDoctor(string mobile)
         {
             return _dal.RejectDoctor(mobile);
+        }
+        public ApiResponse DeactivateUser(string mobile)
+        {
+            return _dal.DeactivateUser(mobile);
         }
 
         public ApiResponse RegisterUser(User user)
@@ -63,6 +76,10 @@ namespace BAL
         public bool VerifyRecaptcha(string token, string secretKey)
         {
             return _dal.VerifyRecaptcha(token, secretKey);
+        }
+        public ApiResponse DeleteDoctor(string mobile)
+        {
+            return _dal.DeleteDoctor(mobile);
         }
     }
 }

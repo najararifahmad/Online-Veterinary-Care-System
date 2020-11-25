@@ -26,6 +26,7 @@ namespace DAL.Models
         public bool IsActive { get; set; }
         public string IdentityCardImagePath { get; set; }
         public string AadharCardImagePath { get; set; }
+        public bool ConfirmationMailSent { get; set; }
         public DateTime? AddedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }

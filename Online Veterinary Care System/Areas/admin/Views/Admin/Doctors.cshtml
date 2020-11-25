@@ -31,8 +31,9 @@
                             <th>Registered Date</th>
                             <th>Identity Card</th>
                             <th>Aadhar Card</th>
-                            <th>#</th>
-                            <th>#</th>
+                            <th>Approve/Reject</th>
+                            <th>Delete</th>
+                            <th>Send Confirmation Mail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,18 +58,29 @@
                                     <img src="@m.AadharCardImagePath" height="100" />
                                 </a>
                             </td>
-                            @if (m.IsActive == false)
-                            {
-                                <td><a href="javascript:void(0)" onclick="approveDoctor('@m.Mobile')">Approve</a></td>
-                            }
-                            else
-                            {
-                                <td><a href="javascript:void(0)" onclick="rejectDoctor('@m.Mobile')">Reject</a></td>
-                            }
                             <td>
-                                <a href="javascript:void(0)" onclick="sendConfirmationEmail('@m.OfficialMail', '@m.Name', '@m.Mobile')">
-                                    Send Confirmation Mail
-                                </a>
+                                @if (m.IsActive == false)
+                                {
+                                    if (m.ConfirmationMailSent == true)
+                                    {
+                                        <a href="javascript:void(0)" onclick="approveDoctor('@m.Mobile')">Approve</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" onclick="rejectDoctor('@m.Mobile')">Reject</a>
+                                }
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" onclick="deleteDoctor('@m.Mobile')">Delete</a>
+                            </td>
+                            <td>
+                                @if (m.ConfirmationMailSent == false)
+                                {
+                                    <a href="javascript:void(0)" onclick="sendConfirmationEmail('@m.ID', '@m.OfficialMail', '@m.Name', '@m.Mobile')">
+                                        Send Confirmation Mail
+                                    </a>
+                                }
                             </td>
                         </tr>
                         }
@@ -126,9 +138,34 @@
         });
     }
 
-    function sendConfirmationEmail(officialEmail, doctorName, mobile) {
+    function deleteDoctor(mobile) {
         $.ajax({
-            url: '/api/User/SendMail?toEmail=' + officialEmail +
+            url: '/api/User/DeleteDoctor?mobile=' + mobile,
+            method: 'DELETE',
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            complete: function () {
+                $('#loading').hide();
+            },
+            success: function (res) {
+                if (res.added) {
+                    alert(res.message);
+                    location.reload();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function (err) {
+                console.log('Error: ', err);
+                alert(err);
+            }
+        });
+    }
+
+    function sendConfirmationEmail(id, officialEmail, doctorName, mobile) {
+        $.ajax({
+            url: '/api/User/SendMail?id=' + id + '&toEmail=' + officialEmail +
                 '&doctorName=' + doctorName + '&mobile=' + mobile,
             method: 'POST',
             beforeSend: function () {
@@ -139,6 +176,8 @@
             },
             success: function (res) {
                 alert(res);
+                if (res === 'Confirmation Email Sent.')
+                    location.reload();
             },
             error: function (err) {
                 console.log('Error: ', err);
